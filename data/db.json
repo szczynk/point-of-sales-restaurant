@@ -1,0 +1,85 @@
+{
+  "users": [
+    {
+      "email": "generatedUUIDv42@test.com",
+      "password": "$2a$10$ym4ohL8jxUkfTxTNcn8jzeFXQ3RNJjqjJUiMlJIMQ2ikSMkaPvLrW",
+      "name": "test",
+      "phone": "089012345678",
+      "role": "customer",
+      "createdAt": 1698226570,
+      "id": 1
+    }
+  ],
+  "orders": [
+    {
+      "userId": 1,
+      "totalAmounts": 2,
+      "totalPrice": 174000,
+      "createdAt": 1698226710,
+      "id": 1
+    }
+  ],
+  "order-items": [
+    {
+      "orderId": 1,
+      "amounts": 2,
+      "productId": 10,
+      "subTotal": 158000,
+      "createdAt": 1698226710,
+      "id": 1
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Ayam"
+    },
+    {
+      "id": 2,
+      "name": "Steak"
+    },
+    {
+      "id": 3,
+      "name": "Bakmi & Bihun"
+    },
+    {
+      "id": 4,
+      "name": "Sup & Soto"
+    },
+    {
+      "id": 5,
+      "name": "Lontong"
+    },
+    {
+      "id": 6,
+      "name": "Nasi Goreng"
+    },
+    {
+      "id": 7,
+      "name": "Snack"
+    },
+    {
+      "id": 8,
+      "name": "Sayuran"
+    },
+    {
+      "id": 9,
+      "name": "Seafood"
+    },
+    {
+      "id": 10,
+      "name": "Minuman"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Es Jeruk",
+      "categoryId": 10,
+      "price": 15000,
+      "minOrder": 1,
+      "image": "https://s-ecom.ottenstatic.com/original/64f5950499e0b133674202.jpg",
+      "createdAt": 1693537970
+    }
+  ]
+}
