@@ -76,9 +76,8 @@ function Login() {
                 <input
                   type="email"
                   placeholder="email"
-                  className={`input input-bordered ${
-                    errors.email ? "input-error" : ""
-                  }`}
+                  className={`input input-bordered ${errors.email ? "input-error" : ""
+                    }`}
                   {...register("email")}
                 />
               </div>
@@ -93,9 +92,8 @@ function Login() {
                   <input
                     type={reveal ? "text" : "password"}
                     placeholder="password"
-                    className={`input input-bordered w-full ${
-                      errors.email ? "input-error" : ""
-                    }`}
+                    className={`input input-bordered w-full ${errors.email ? "input-error" : ""
+                      }`}
                     {...register("password")}
                   />
                   <button
