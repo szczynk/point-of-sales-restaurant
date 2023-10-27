@@ -91,12 +91,210 @@
   "products": [
     {
       "id": 1,
+      "name": "Es Timun Serut",
+      "categoryId": 10,
+      "price": 20000,
+      "minOrder": 1,
+      "image": "https://dcostseafood.id/wp-content/uploads/2023/04/Es-timun-Serut-300x300.jpg",
+      "createdAt": 1693537970
+    },
+    {
+      "id": 2,
       "name": "Es Jeruk",
       "categoryId": 10,
       "price": 15000,
       "minOrder": 1,
-      "image": "https://s-ecom.ottenstatic.com/original/64f5950499e0b133674202.jpg",
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/ES-JERUK-murni-300x300.jpg",
       "createdAt": 1693537970
+    },
+    {
+      "id": 3,
+      "name": "Es Jeruk Kelapa",
+      "categoryId": 10,
+      "price": 18000,
+      "minOrder": 1,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/ES-JERUK-murni-KELAPA-MUDA-300x300.jpg",
+      "createdAt": 1693537970
+    },
+    {
+      "name": "Thai Tea",
+      "price": 15000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2023/03/Thai-Tea-300x300.jpg",
+      "categoryId": 10,
+      "minOrder": 1,
+      "createdAt": 1698392482,
+      "id": 4
+    },
+    {
+      "name": "Happy Soda",
+      "price": 15000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2023/03/Happy-Soda-300x300.jpg",
+      "categoryId": 10,
+      "minOrder": 1,
+      "createdAt": 1698392514,
+      "id": 5
+    },
+    {
+      "name": "Kopi Tubruk",
+      "price": 8000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2022/03/Kopi-Tubruk-300x300.jpg",
+      "categoryId": 10,
+      "minOrder": 1,
+      "createdAt": 1698392543,
+      "id": 6
+    },
+    {
+      "name": "Coffee Float",
+      "price": 15000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Coffee-Float-300x300.jpg",
+      "categoryId": 10,
+      "minOrder": 1,
+      "createdAt": 1698392572,
+      "id": 7
+    },
+    {
+      "name": "Sparkling Coconut",
+      "price": 20000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Sparkling-Coconut-300x300.jpg",
+      "categoryId": 10,
+      "minOrder": 1,
+      "createdAt": 1698392590,
+      "id": 8
+    },
+    {
+      "name": "Avocado Float",
+      "price": 20000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Avocado-Float-300x300.jpg",
+      "categoryId": 10,
+      "minOrder": 1,
+      "createdAt": 1698392605,
+      "id": 9
+    },
+    {
+      "name": "Jus Alpukat",
+      "price": 15000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Jus-Alpukat-300x300.jpg",
+      "categoryId": 10,
+      "minOrder": 1,
+      "createdAt": 1698392621,
+      "id": 10
+    },
+    {
+      "name": "Iced Green Tea",
+      "price": 15000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/ICED-GREEN-TEA-300x300.jpg",
+      "categoryId": 10,
+      "minOrder": 1,
+      "createdAt": 1698392651,
+      "id": 11
+    },
+    {
+      "name": "Lychee Tea",
+      "price": 15000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/LYCHEE-TEA-300x300.jpg",
+      "categoryId": 10,
+      "minOrder": 1,
+      "createdAt": 1698392708,
+      "id": 12
+    },
+    {
+      "name": "Yakult Lychee",
+      "price": 13000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Yakult-lychee-New-300x300.jpg",
+      "categoryId": 10,
+      "minOrder": 1,
+      "createdAt": 1698392731,
+      "id": 13
+    },
+    {
+      "name": "Jus Sirsak",
+      "price": 17000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/JUS-SIRSAK-300x300.jpg",
+      "categoryId": 10,
+      "minOrder": 1,
+      "createdAt": 1698392760,
+      "id": 14
+    },
+    {
+      "name": "Jus Jambu",
+      "price": 17000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/JUS-JAMBU-300x300.jpg",
+      "categoryId": 10,
+      "minOrder": 1,
+      "createdAt": 1698392774,
+      "id": 15
+    },
+    {
+      "name": "Es Kelapa Muda",
+      "price": 15000,
+      "image": "http://dcostseafood.id/wp-content/uploads/2021/12/ES-KELAPA-MUDA-300x300.jpg",
+      "categoryId": 10,
+      "minOrder": 1,
+      "createdAt": 1698392810,
+      "id": 16
+    },
+    {
+      "name": "Es Milo",
+      "price": 12000,
+      "image": "http://dcostseafood.id/wp-content/uploads/2021/12/ES-MILO-300x300.jpg",
+      "categoryId": 10,
+      "minOrder": 1,
+      "createdAt": 1698392825,
+      "id": 17
+    },
+    {
+      "name": "Es Lemon Tea",
+      "price": 12000,
+      "image": "http://dcostseafood.id/wp-content/uploads/2021/12/ES-LEMON-TEA-300x300.jpg",
+      "categoryId": 10,
+      "minOrder": 1,
+      "createdAt": 1698392839,
+      "id": 18
+    },
+    {
+      "name": "Es Teh Manis",
+      "price": 10000,
+      "image": "http://dcostseafood.id/wp-content/uploads/2021/12/Es-teh-tawar-manis-300x300.jpg",
+      "categoryId": 10,
+      "minOrder": 1,
+      "createdAt": 1698392872,
+      "id": 19
+    },
+    {
+      "name": "Teh Manis",
+      "price": 8000,
+      "image": "http://dcostseafood.id/wp-content/uploads/2021/12/Teh-tawar-manis-300x300.jpg",
+      "categoryId": 10,
+      "minOrder": 1,
+      "createdAt": 1698392885,
+      "id": 20
+    },
+    {
+      "name": "Es Teh Tawar",
+      "price": 8000,
+      "image": "http://dcostseafood.id/wp-content/uploads/2021/12/Es-teh-tawar-manis-300x300.jpg",
+      "categoryId": 10,
+      "minOrder": 1,
+      "createdAt": 1698392909,
+      "id": 21
+    },
+    {
+      "name": "Teh Tawar",
+      "price": 5000,
+      "image": "http://dcostseafood.id/wp-content/uploads/2021/12/Teh-tawar-manis-300x300.jpg",
+      "categoryId": 10,
+      "minOrder": 1,
+      "createdAt": 1698392925,
+      "id": 22
+    },
+    {
+      "name": "Air Mineral",
+      "price": 5000,
+      "image": "http://dcostseafood.id/wp-content/uploads/2021/12/Air-Mineral-300x300.jpg",
+      "categoryId": 10,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 23
     }
   ],
   "payment-methods": [
