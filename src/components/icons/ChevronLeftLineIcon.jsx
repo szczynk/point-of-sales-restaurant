@@ -1,4 +1,4 @@
-function ChevronLeftLine() {
+function ChevronLeftLineIcon() {
   return (
     <>
       <svg
@@ -16,4 +16,4 @@ function ChevronLeftLine() {
   );
 }
 
-export default ChevronLeftLine;
+export default ChevronLeftLineIcon;

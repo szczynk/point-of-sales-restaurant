@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.pop-effect {
+  animation: button-pop var(--animation-btn, 0.25s) ease-out;
+  transition-property:
+    color,
+    background-color,
+    border-color,
+    text-decoration-color,
+    fill,
+    stroke,
+    opacity,
+    box-shadow,
+    transform,
+    filter,
+    backdrop-filter,
+    -webkit-text-decoration-color,
+    -webkit-backdrop-filter;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.pop-effect:active:focus,
+.pop-effect:active:hover {
+  animation: none;
+  transform: scale(var(--btn-focus-scale, 0.95));
+}

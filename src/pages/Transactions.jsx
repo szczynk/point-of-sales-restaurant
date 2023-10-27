@@ -14,10 +14,10 @@ import useSWR from "swr";
 
 import { getAllItems } from "../api/api";
 import { ORDERS } from "../api/routes";
-import ChevronLeft from "../components/ChevronLeft";
-import ChevronLeftLine from "../components/ChevronLeftLine";
-import ChevronRight from "../components/ChevronRight";
-import ChevronRightLine from "../components/ChevronRightLine";
+import ChevronLeftIcon from "../components/icons/ChevronLeftIcon";
+import ChevronLeftLineIcon from "../components/icons/ChevronLeftLineIcon";
+import ChevronRightIcon from "../components/icons/ChevronRightIcon";
+import ChevronRightLineIcon from "../components/icons/ChevronRightLineIcon";
 import absoluteRange from "../utils/absoluteRange";
 import epochToDate from "../utils/epochToDate";
 
@@ -205,7 +205,7 @@ function Transactions() {
             value={table.getState().pagination.pageSize}
             onChange={handleLimit}
           >
-            {[1, 10, 25, 50, 100].map((pageSize) => (
+            {[10, 25, 50, 100].map((pageSize) => (
               <Select.Option key={pageSize} value={pageSize}>
                 {pageSize}
               </Select.Option>
@@ -236,28 +236,28 @@ function Transactions() {
             disabled={!table.getCanPreviousPage()}
             onClick={handleFirstPage}
           >
-            <ChevronLeftLine></ChevronLeftLine>
+            <ChevronLeftLineIcon></ChevronLeftLineIcon>
           </Button>
           <Button
             className="join-item"
             disabled={!table.getCanPreviousPage()}
             onClick={handlePrevPage}
           >
-            <ChevronLeft></ChevronLeft>
+            <ChevronLeftIcon></ChevronLeftIcon>
           </Button>
           <Button
             className="join-item"
             disabled={!table.getCanNextPage()}
             onClick={handleNextPage}
           >
-            <ChevronRight></ChevronRight>
+            <ChevronRightIcon></ChevronRightIcon>
           </Button>
           <Button
             className="join-item"
             disabled={!table.getCanNextPage()}
             onClick={handleLastPage}
           >
-            <ChevronRightLine></ChevronRightLine>
+            <ChevronRightLineIcon></ChevronRightLineIcon>
           </Button>
         </Pagination>
       </div>

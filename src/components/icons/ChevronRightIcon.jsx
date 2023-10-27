@@ -1,4 +1,4 @@
-function ChevronRightLine() {
+function ChevronRightIcon() {
   return (
     <>
       <svg
@@ -9,11 +9,11 @@ function ChevronRightLine() {
         aria-hidden="true"
         role="presentation"
       >
-        <path d="M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6-6-6zM16 6h2v12h-2z"></path>
-        <path fill="none" d="M0 0h24v24H0V0z"></path>
+        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path>
+        <path d="M0 0h24v24H0z" fill="none"></path>
       </svg>
     </>
   );
 }
 
-export default ChevronRightLine;
+export default ChevronRightIcon;
