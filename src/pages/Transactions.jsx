@@ -7,7 +7,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Button, Input, Loading, Pagination, Select } from "react-daisyui";
 import { Link } from "react-router-dom";
 import useSWR from "swr";
@@ -18,8 +18,10 @@ import ChevronLeft from "../components/ChevronLeft";
 import ChevronLeftLine from "../components/ChevronLeftLine";
 import ChevronRight from "../components/ChevronRight";
 import ChevronRightLine from "../components/ChevronRightLine";
+import absoluteRange from "../utils/absoluteRange";
 import epochToDate from "../utils/epochToDate";
 
+// https://codesandbox.io/p/sandbox/github/tanstack/table/tree/main/examples/react/filters?embed=1&file=%2Fsrc%2Fmain.tsx%3A294%2C13-294%2C48
 const columnHelper = createColumnHelper();
 
 const columns = [
@@ -75,6 +77,21 @@ function Transactions() {
     getAllItems,
   );
 
+  const [{ pageIndex, pageSize }, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 10,
+  });
+
+  const defaultData = useMemo(() => [], []);
+
+  const pagination = useMemo(
+    () => ({
+      pageIndex,
+      pageSize,
+    }),
+    [pageIndex, pageSize],
+  );
+
   const [globalFilter, setGlobalFilter] = useState("");
 
   const fuzzyFilter = (row, columnId, value, addMeta) => {
@@ -89,14 +106,16 @@ function Transactions() {
   };
 
   const table = useReactTable({
-    data: data || [],
+    data: data ?? defaultData,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onGlobalFilterChange: setGlobalFilter,
     globalFilterFn: fuzzyFilter,
+    onPaginationChange: setPagination,
     state: {
+      pagination,
       globalFilter,
     },
     debugTable: true,
@@ -118,7 +137,8 @@ function Transactions() {
   };
 
   const handleGoToPage = (event) => {
-    const page = event.target.value ? Number(event.target.value) - 1 : 0;
+    let page = event.target.value ? Number(event.target.value) - 1 : 0;
+    page = absoluteRange(page, 0, table.getPageCount() - 1);
     table.setPageIndex(page);
   };
 
@@ -132,6 +152,7 @@ function Transactions() {
 
   return (
     <>
+      <h1 className="text-2xl font-bold">Riwayat Transaksi</h1>
       <div className="overflow-x-auto">
         <table className="table">
           <thead>
@@ -179,7 +200,7 @@ function Transactions() {
         </table>
       </div>
       <div className="mt-6 flex flex-wrap justify-between gap-2">
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <Select
             value={table.getState().pagination.pageSize}
             onChange={handleLimit}
@@ -202,7 +223,7 @@ function Transactions() {
             | Go to page:
             <Input
               type="number"
-              defaultValue={table.getState().pagination.pageIndex + 1}
+              value={pageIndex + 1}
               onChange={handleGoToPage}
               className="w-16"
             />
