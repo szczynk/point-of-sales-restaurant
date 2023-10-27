@@ -10,6 +10,7 @@ import Default from "./layouts/Default";
 import DefaultProtected from "./layouts/DefaultProtected";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Transactions from "./pages/Transactions";
 import store from "./redux/store";
 
 const router = createBrowserRouter(
@@ -20,6 +21,8 @@ const router = createBrowserRouter(
 
         <Route element={<DefaultProtected />}>
           <Route index element={<Home />} />
+
+          <Route path="transactions" element={<Transactions />} />
         </Route>
       </Route>
     </Route>,
