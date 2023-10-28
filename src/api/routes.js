@@ -9,3 +9,5 @@ export const CATEGORIES = "/categories";
 export const ORDERS = "/orders";
 
 export const ORDER_ITEMS = "/order-items";
+
+export const PAYMENT_METHODS = "/payment-methods";

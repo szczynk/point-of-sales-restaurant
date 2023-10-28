@@ -6,6 +6,42 @@ const cartSlice = createSlice({
     items: [],
     totalAmounts: 0,
     subTotalProductPrice: 0,
+
+    // ! Keep this intact for futher development
+    // items: [
+    //   {
+    //     productId: 4,
+    //     product: {
+    //       name: "Thai Tea",
+    //       price: 15000,
+    //       image:
+    //         "https://dcostseafood.id/wp-content/uploads/2023/03/Thai-Tea-300x300.jpg",
+    //       categoryId: 10,
+    //       minOrder: 1,
+    //       createdAt: 1698392482,
+    //       id: 4,
+    //     },
+    //     subTotal: 30000,
+    //     amounts: 2,
+    //   },
+    //   {
+    //     productId: 3,
+    //     product: {
+    //       id: 3,
+    //       name: "Es Jeruk Kelapa",
+    //       categoryId: 10,
+    //       price: 18000,
+    //       minOrder: 1,
+    //       image:
+    //         "https://dcostseafood.id/wp-content/uploads/2021/12/ES-JERUK-murni-KELAPA-MUDA-300x300.jpg",
+    //       createdAt: 1693537970,
+    //     },
+    //     subTotal: 18000,
+    //     amounts: 1,
+    //   },
+    // ],
+    // totalAmounts: 3,
+    // subTotalProductPrice: 48000,
   },
   reducers: {
     addItem: (state, { payload }) => {

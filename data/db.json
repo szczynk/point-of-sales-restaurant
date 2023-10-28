@@ -1,18 +1,18 @@
 {
   "users": [
     {
-      "email": "generatedUUIDv42@test.com",
+      "email": "walk-in-customer@test.com",
       "password": "$2a$10$ym4ohL8jxUkfTxTNcn8jzeFXQ3RNJjqjJUiMlJIMQ2ikSMkaPvLrW",
-      "name": "Walk-In",
+      "name": "Walk-In Customer",
       "phone": "089012345678",
       "role": "customer",
       "createdAt": 1698226570,
-      "id": 1
+      "id": 2
     }
   ],
   "orders": [
     {
-      "userId": 1,
+      "userId": 2,
       "payment-methodId": 1,
       "totalAmounts": 2,
       "totalPrice": 174000,
@@ -20,7 +20,7 @@
       "id": 1
     },
     {
-      "userId": 1,
+      "userId": 2,
       "payment-methodId": 1,
       "totalAmounts": 2,
       "totalPrice": 174000,
@@ -28,7 +28,7 @@
       "id": 2
     },
     {
-      "userId": 1,
+      "userId": 2,
       "payment-methodId": 1,
       "totalAmounts": 2,
       "totalPrice": 174000,

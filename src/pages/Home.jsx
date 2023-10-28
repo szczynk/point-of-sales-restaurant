@@ -1,9 +1,11 @@
 // import CardComponents from "../components/Card";
 // import NavbarComponents from '../components/Navbar';
 
+import { object } from "prop-types";
 import { useMemo, useState } from "react";
 import { Input, Select } from "react-daisyui";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 
 import { getAllItems } from "../api/api";
@@ -39,13 +41,13 @@ function ProductCard(props) {
   return (
     <>
       <button
-        className="pop-effect card card-compact shadow-2xl"
+        className="pop-effect rounded-2xl shadow-2xl"
         onClick={handleOnClick}
       >
         <figure className="rounded-2xl">
           <img src={image} alt={name} />
         </figure>
-        <div className="card-body items-center !p-1 text-center">
+        <div className="card-body items-center justify-center !p-1 text-center">
           <h3 className="card-title !m-0 line-clamp-1 text-sm">{name}</h3>
           <p className="text-sm font-bold text-primary">
             {idrPriceFormat(price)}
@@ -55,6 +57,10 @@ function ProductCard(props) {
     </>
   );
 }
+
+ProductCard.propTypes = {
+  product: object,
+};
 
 function CartItem(props) {
   const { item } = props;
@@ -131,6 +137,10 @@ function CartItem(props) {
   );
 }
 
+CartItem.propTypes = {
+  item: object,
+};
+
 function Home() {
   const { data: products } = useSWR(PRODUCTS, getAllItems);
 
@@ -153,24 +163,29 @@ function Home() {
 
   const { items, subTotalProductPrice } = useSelector((state) => state.cart);
 
+  const navigate = useNavigate();
+
   const handleBayar = () => {
     console.log({ items, subTotalProductPrice });
+
+    navigate("/payment");
   };
 
   return (
     <>
       {/* <NavbarComponents /> */}
       {/* <CardComponents /> */}
-      <div className="flex flex-wrap bg-black">
-        <div className="mb-4 w-full md:mb-0 md:min-w-[60%] md:max-w-[60%]">
-          <div className="card card-compact w-full bg-white shadow-2xl">
+      <div className="flex flex-wrap">
+        <div className="w-full md:mb-0 md:min-w-[60%] md:max-w-[60%]">
+          <div className="card card-compact w-full shadow-2xl">
             <div className="card-body">
               <div className="flex-warp flex items-center justify-between gap-2 pb-4 text-center">
                 <h2 className="text-2xl font-bold">Daftar Produk</h2>
+                {/* // ! at screen width 896px or 916px, the text height get doubled and ruined perfect height*/}
                 <div className="flex flex-wrap justify-between gap-2">
                   <Select>
-                    {["terbaru", "termahal"].map((option, index) => (
-                      <Select.Option key={index} value={option}>
+                    {["terbaru", "termahal"].map((option) => (
+                      <Select.Option key={option} value={option}>
                         {option}
                       </Select.Option>
                     ))}
@@ -179,7 +194,7 @@ function Home() {
                 </div>
               </div>
 
-              <div className="grid h-[calc(100vh_-_239px)] grid-cols-5 gap-8 overflow-y-auto pr-2">
+              <div className="grid h-[calc(100vh_-_239px)] grid-cols-3 gap-6 overflow-y-auto pr-2 lg:grid-cols-4">
                 {embeddedCategories.length !== 0
                   ? embeddedCategories[tabValue].products.map((product) => (
                       <ProductCard
@@ -191,7 +206,7 @@ function Home() {
               </div>
             </div>
           </div>
-          <div className="card card-compact w-full bg-white shadow-2xl">
+          <div className="card card-compact w-full shadow-2xl">
             <div className="card-body">
               <div role="tablist" className="flex w-full overflow-x-auto pb-2">
                 {embeddedCategories?.map((category) => (
@@ -211,8 +226,13 @@ function Home() {
             </div>
           </div>
         </div>
+
+        <div className="divider hidden md:divider-horizontal md:!mx-0 md:flex"></div>
+
         <div className="w-full md:grow md:basis-0">
-          <div className="card card-compact mb-6 bg-white shadow-2xl md:mb-0">
+          <div className="divider !my-0 md:hidden"></div>
+
+          <div className="card card-compact mb-6 shadow-2xl md:mb-0">
             <div className="card-body">
               <div className="h-16 pb-4 text-center text-2xl font-bold">
                 Daftar Pesanan

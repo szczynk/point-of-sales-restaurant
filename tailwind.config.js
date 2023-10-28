@@ -1,4 +1,3 @@
-import forms from "@tailwindcss/forms";
 import daisyui from "daisyui";
 
 export default {
@@ -11,7 +10,7 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [forms, daisyui],
+  plugins: [daisyui],
   daisyui: {
     themes: ["light", "dark"],
     darkTheme: "dark",

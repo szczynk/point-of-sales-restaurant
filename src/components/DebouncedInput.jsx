@@ -1,3 +1,4 @@
+import { func, number, oneOfType, string } from "prop-types";
 import { useEffect, useState } from "react";
 
 function DebouncedInput(props) {
@@ -21,5 +22,11 @@ function DebouncedInput(props) {
 
   return <input {...rest} value={value} onChange={handleOnChange} />;
 }
+
+DebouncedInput.propTypes = {
+  value: oneOfType([string, number]),
+  onChange: func,
+  debounce: number,
+};
 
 export default DebouncedInput;
