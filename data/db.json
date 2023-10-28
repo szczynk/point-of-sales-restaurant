@@ -34,6 +34,13 @@
       "totalPrice": 174000,
       "createdAt": 1698226710,
       "id": 3
+    },
+    {
+      "userId": 2,
+      "totalAmounts": 2,
+      "payment-methodId": 1,
+      "totalPrice": 35000,
+      "id": 4
     }
   ],
   "order-items": [
@@ -44,6 +51,20 @@
       "subTotal": 158000,
       "createdAt": 1698226710,
       "id": 1
+    },
+    {
+      "orderId": 4,
+      "amounts": 1,
+      "productId": 7,
+      "subTotal": 15000,
+      "id": 2
+    },
+    {
+      "orderId": 4,
+      "amounts": 1,
+      "productId": 8,
+      "subTotal": 20000,
+      "id": 3
     }
   ],
   "categories": [

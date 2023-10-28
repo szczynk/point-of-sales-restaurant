@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import Payment from "./pages/Payment";
 import Transactions from "./pages/Transactions";
 import store from "./redux/store";
+import OrdersDetail from "./pages/OrdersDetail";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +26,7 @@ const router = createBrowserRouter(
 
           <Route path="payment" element={<Payment />} />
           <Route path="transactions" element={<Transactions />} />
+          <Route path="transactions/:id" element={<OrdersDetail />} />
         </Route>
       </Route>
     </Route>,
