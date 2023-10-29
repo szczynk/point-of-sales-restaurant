@@ -3,21 +3,29 @@ import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
+  getFacetedMinMaxValues,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
+  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import { Button, Input, Loading, Pagination, Select } from "react-daisyui";
+import {
+  CgChevronLeft,
+  CgChevronRight,
+  CgPushChevronLeft,
+  CgPushChevronRight,
+} from "react-icons/cg";
+import { FaArrowRotateRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import useSWR from "swr";
 
 import { getAllItems } from "../api/api";
 import { ORDERS } from "../api/routes";
-import ChevronLeftIcon from "../components/icons/ChevronLeftIcon";
-import ChevronLeftLineIcon from "../components/icons/ChevronLeftLineIcon";
-import ChevronRightIcon from "../components/icons/ChevronRightIcon";
-import ChevronRightLineIcon from "../components/icons/ChevronRightLineIcon";
+import DebouncedInput from "../components/DebouncedInput";
 import absoluteRange from "../utils/absoluteRange";
 import epochToDate from "../utils/epochToDate";
 
@@ -26,21 +34,13 @@ const columnHelper = createColumnHelper();
 
 const columns = [
   columnHelper.accessor("createdAt", {
-    header: () => (
-      <span className="text-base">
-        Tanggal<br></br>Transaksi
-      </span>
-    ),
+    header: () => <span className="text-base">Tanggal Transaksi</span>,
     cell: (info) => (
       <span className="text-base">{epochToDate(info.getValue())}</span>
     ),
   }),
   columnHelper.accessor("id", {
-    header: () => (
-      <span className="text-base">
-        ID<br></br>Transaksi
-      </span>
-    ),
+    header: () => <span className="text-base">ID Transaksi</span>,
     cell: (info) => <span className="text-base">{info.getValue()}</span>,
   }),
   columnHelper.accessor("user.name", {
@@ -48,11 +48,7 @@ const columns = [
     cell: (info) => <span className="text-base">{info.getValue()}</span>,
   }),
   columnHelper.accessor("payment-method.name", {
-    header: () => (
-      <span className="text-base">
-        Jenis<br></br>Pembayaran
-      </span>
-    ),
+    header: () => <span className="text-base">Jenis Pembayaran</span>,
     cell: (info) => <span className="text-base">{info.getValue()}</span>,
   }),
   columnHelper.accessor("totalPrice", {
@@ -93,6 +89,7 @@ function Transactions() {
   );
 
   const [globalFilter, setGlobalFilter] = useState("");
+  const [columnFilters, setColumnFilters] = useState([]);
 
   const fuzzyFilter = (row, columnId, value, addMeta) => {
     // Rank the item
@@ -108,16 +105,30 @@ function Transactions() {
   const table = useReactTable({
     data: data ?? defaultData,
     columns,
+
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    onGlobalFilterChange: setGlobalFilter,
-    globalFilterFn: fuzzyFilter,
+    getFilteredRowModel: getFilteredRowModel(),
+    getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
+    getFacetedMinMaxValues: getFacetedMinMaxValues(),
+
     onPaginationChange: setPagination,
+
+    onGlobalFilterChange: setGlobalFilter,
+    onColumnFiltersChange: setColumnFilters,
+
+    globalFilterFn: fuzzyFilter,
+    filterFns: {
+      fuzzy: fuzzyFilter,
+    },
     state: {
       pagination,
       globalFilter,
+      columnFilters,
     },
+
     debugTable: true,
     debugHeaders: true,
     debugColumns: true,
@@ -146,13 +157,35 @@ function Transactions() {
     table.setPageSize(Number(event.target.value));
   };
 
+  const handleResetFilter = () => {
+    setGlobalFilter("");
+    setColumnFilters([]);
+  };
+
   if (isLoading) {
     return <Loading></Loading>;
   }
 
   return (
     <>
-      <h1 className="text-2xl font-bold">Riwayat Transaksi</h1>
+      <div className="p-4">
+        <h1 className="text-2xl font-bold">Riwayat Transaksi</h1>
+      </div>
+      <div className="flex items-center justify-between gap-2 p-4">
+        <DebouncedInput
+          type="text"
+          className="input w-48 focus:outline-offset-0"
+          value={globalFilter ?? ""}
+          onChange={(value) => setGlobalFilter(String(value))}
+          spellCheck="false"
+          placeholder="Cari Transaksi"
+        ></DebouncedInput>
+        <div className="justify-betwwen items-center gap-2">
+          <button type="button" className="btn" onClick={handleResetFilter}>
+            <FaArrowRotateRight className="h-5 w-5 fill-primary"></FaArrowRotateRight>
+          </button>
+        </div>
+      </div>
       <div className="overflow-x-auto">
         <table className="table">
           <thead>
@@ -199,7 +232,8 @@ function Transactions() {
           </tbody>
         </table>
       </div>
-      <div className="mt-6 flex flex-wrap justify-between gap-2">
+
+      <div className="flex flex-wrap justify-between gap-2 p-4">
         <div className="flex flex-wrap items-center gap-2">
           <Select
             value={table.getState().pagination.pageSize}
@@ -236,28 +270,28 @@ function Transactions() {
             disabled={!table.getCanPreviousPage()}
             onClick={handleFirstPage}
           >
-            <ChevronLeftLineIcon></ChevronLeftLineIcon>
+            <CgPushChevronLeft className="h-5 w-5"></CgPushChevronLeft>
           </Button>
           <Button
             className="join-item"
             disabled={!table.getCanPreviousPage()}
             onClick={handlePrevPage}
           >
-            <ChevronLeftIcon></ChevronLeftIcon>
+            <CgChevronLeft className="h-5 w-5"></CgChevronLeft>
           </Button>
           <Button
             className="join-item"
             disabled={!table.getCanNextPage()}
             onClick={handleNextPage}
           >
-            <ChevronRightIcon></ChevronRightIcon>
+            <CgChevronRight className="h-5 w-5"></CgChevronRight>
           </Button>
           <Button
             className="join-item"
             disabled={!table.getCanNextPage()}
             onClick={handleLastPage}
           >
-            <ChevronRightLineIcon></ChevronRightLineIcon>
+            <CgPushChevronRight className="h-5 w-5"></CgPushChevronRight>
           </Button>
         </Pagination>
       </div>

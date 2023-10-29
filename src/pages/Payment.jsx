@@ -71,10 +71,15 @@ function Payment() {
 
   const values = watch();
 
-  const kembalian =
-    values.dibayar - subTotalProductPrice < 0
-      ? 0
-      : values.dibayar - subTotalProductPrice;
+  const kembalian = () => {
+    const jmlhKembalian = Number(values.dibayar) - subTotalProductPrice;
+
+    if (jmlhKembalian < 0 || isNaN(jmlhKembalian)) {
+      return 0;
+    }
+
+    return jmlhKembalian;
+  };
 
   useEffect(() => {
     reset((values) => ({
@@ -190,7 +195,7 @@ function Payment() {
                 </div>
               </div>
 
-              <div>
+              <div className="pb-4">
                 <label className="label">
                   <span className="label-text text-xl font-bold">Tipe</span>
                 </label>
@@ -210,7 +215,7 @@ function Payment() {
                 </div>
               </div>
 
-              <div>
+              <div className="pb-4">
                 <label className="label">
                   <span className="label-text text-xl font-bold">Dibayar</span>
                 </label>
@@ -222,10 +227,14 @@ function Payment() {
               </div>
 
               <div className="pb-4">
-                <div className="flex flex-wrap items-center justify-between gap-3 font-bold">
+                <div
+                  className={`flex flex-wrap items-center justify-between gap-3 font-bold ${
+                    kembalian() === 0 ? "opacity-0" : "opacity-100"
+                  }`}
+                >
                   <span className="text-xl font-bold">Kembalian</span>
                   <span className="text-xl font-bold">
-                    {idrPriceFormat(kembalian)}
+                    {idrPriceFormat(kembalian())}
                   </span>
                 </div>
               </div>

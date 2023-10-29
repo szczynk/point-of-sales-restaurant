@@ -2,16 +2,16 @@
 // import NavbarComponents from '../components/Navbar';
 
 import { object } from "prop-types";
-import { useMemo, useState } from "react";
-import { Input, Select } from "react-daisyui";
+import { useEffect, useMemo, useState } from "react";
+import { Select } from "react-daisyui";
+import { FaArrowRotateRight, FaMinus, FaPlus, FaTrash } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 
 import { getAllItems } from "../api/api";
 import { CATEGORIES, PRODUCTS } from "../api/routes";
-import MinusIcon from "../components/icons/MinusIcon";
-import PlusIcon from "../components/icons/PlusIcon";
+import DebouncedInput from "../components/DebouncedInput";
 import {
   addItem as addCartItem,
   onDecrement as onDecrementItem,
@@ -91,9 +91,7 @@ function CartItem(props) {
               className="btn px-3"
               onClick={handleRemoveItemById}
             >
-              <svg viewBox="0 0 24 24" className="h-6 fill-primary">
-                <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"></path>
-              </svg>
+              <FaTrash className="h-5 w-5 fill-primary"></FaTrash>
             </button>
           </div>
 
@@ -114,7 +112,7 @@ function CartItem(props) {
               onClick={handleOnDecrement}
               disabled={amounts <= 1}
             >
-              <MinusIcon></MinusIcon>
+              <FaMinus className="h-4 w-4 fill-primary"></FaMinus>
             </button>
             <input
               className="join-item w-8 border-0 p-0 text-center"
@@ -128,7 +126,7 @@ function CartItem(props) {
               className="pop-effect join-item flex items-center justify-center sm:p-3"
               onClick={handleOnIncrement}
             >
-              <PlusIcon></PlusIcon>
+              <FaPlus className="h-4 w-4 fill-primary"></FaPlus>
             </button>
           </div>
         </div>
@@ -149,17 +147,93 @@ function Home() {
     getAllItems,
   );
 
-  const [tabValue, setTabValue] = useState(0);
-  const handleOnClick = (id) => {
-    setTabValue(id);
+  const options = [
+    { name: "Urutkan", value: "" },
+    { name: "Judul (A - Z)", value: "title-asc" },
+    { name: "Judul (Z - A)", value: "title-desc" },
+    { name: "Termurah", value: "price-asc" },
+    { name: "Termahal", value: "price-desc" },
+  ];
+
+  const [filterAndSort, setFilterAndSort] = useState({
+    judul: "",
+    kategori: 0,
+    sort: "",
+  });
+
+  const [processedCategories, setProcessedCategories] = useState([
+    { id: 0, name: "Semua" },
+  ]);
+
+  useMemo(() => {
+    if (categories) {
+      setProcessedCategories((prevCategories) => [
+        ...prevCategories,
+        ...categories,
+      ]);
+    }
+  }, [categories]);
+
+  const [tabCategory, setTabCategory] = useState(0);
+
+  const handleTabCategory = (id) => {
+    setFilterAndSort((prevFilter) => ({ ...prevFilter, kategori: id }));
+    setTabCategory(id);
   };
 
-  const embeddedCategories = useMemo(() => {
-    if (categories && products) {
-      return [{ id: 0, name: "Semua", products: [...products] }, ...categories];
+  const [processedProducts, setProcessedProducts] = useState([]);
+
+  useEffect(() => {
+    if (products) {
+      let filteredProducts = [...products];
+
+      if (filterAndSort.kategori !== 0) {
+        filteredProducts = filteredProducts.filter(
+          ({ categoryId }) => filterAndSort.kategori === categoryId,
+        );
+      }
+
+      if (filterAndSort.judul) {
+        filteredProducts = filteredProducts.filter(({ name }) =>
+          name.toLowerCase().includes(filterAndSort.judul.toLowerCase()),
+        );
+      }
+
+      if (filterAndSort.sort) {
+        switch (filterAndSort.sort) {
+          case "title-asc":
+            filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+            break;
+          case "title-desc":
+            filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
+            break;
+          case "price-asc":
+            filteredProducts.sort((a, b) => a.price - b.price);
+            break;
+          case "price-desc":
+            filteredProducts.sort((a, b) => b.price - a.price);
+            break;
+          default:
+            break;
+        }
+      }
+
+      setProcessedProducts(filteredProducts);
     }
-    return [];
-  }, [categories, products]);
+  }, [
+    filterAndSort.judul,
+    filterAndSort.kategori,
+    filterAndSort.sort,
+    products,
+  ]);
+
+  const handleResetFilterAndSort = () => {
+    setFilterAndSort({
+      judul: "",
+      kategori: 0,
+      sort: "",
+    });
+  };
 
   const { items, subTotalProductPrice } = useSelector((state) => state.cart);
 
@@ -183,41 +257,67 @@ function Home() {
                 <h2 className="text-2xl font-bold">Daftar Produk</h2>
                 {/* // ! at screen width 896px or 916px, the text height get doubled and ruined perfect height*/}
                 <div className="flex flex-wrap justify-between gap-2">
-                  <Select>
-                    {["terbaru", "termahal"].map((option) => (
-                      <Select.Option key={option} value={option}>
-                        {option}
+                  <select
+                    name="sort"
+                    className="select focus:outline-offset-0"
+                    onChange={(event) =>
+                      setFilterAndSort((prevState) => ({
+                        ...prevState,
+                        sort: event.target.value,
+                      }))
+                    }
+                    value={filterAndSort.sort}
+                  >
+                    {options.map(({ name, value }) => (
+                      <Select.Option key={value} value={value}>
+                        {name}
                       </Select.Option>
                     ))}
-                  </Select>
-                  <Input type="text" className="w-48"></Input>
+                  </select>
+                  <DebouncedInput
+                    name="judul"
+                    type="text"
+                    className="input w-48 focus:outline-offset-0"
+                    value={filterAndSort.judul}
+                    onChange={(value) =>
+                      setFilterAndSort((prevState) => ({
+                        ...prevState,
+                        judul: value,
+                      }))
+                    }
+                    spellCheck="false"
+                    placeholder="Cari Produk"
+                  ></DebouncedInput>
+                  <button
+                    type="button"
+                    className="btn"
+                    onClick={handleResetFilterAndSort}
+                  >
+                    <FaArrowRotateRight className="h-5 w-5 fill-primary"></FaArrowRotateRight>
+                  </button>
                 </div>
               </div>
 
               <div className="grid h-[calc(100vh_-_239px)] grid-cols-3 gap-6 overflow-y-auto pr-2 lg:grid-cols-4">
-                {embeddedCategories.length !== 0
-                  ? embeddedCategories[tabValue].products.map((product) => (
-                      <ProductCard
-                        key={product.id}
-                        product={product}
-                      ></ProductCard>
-                    ))
-                  : null}
+                {processedProducts?.map((product) => (
+                  <ProductCard key={product.id} product={product}></ProductCard>
+                ))}
               </div>
             </div>
           </div>
+
           <div className="card card-compact w-full shadow-2xl">
             <div className="card-body">
               <div role="tablist" className="flex w-full overflow-x-auto pb-2">
-                {embeddedCategories?.map((category) => (
+                {processedCategories?.map((category) => (
                   <button
                     type="button"
                     role="tab"
                     key={category.id}
                     className={`btn ${
-                      tabValue === category.id ? "btn-primary" : ""
+                      tabCategory === category.id ? "btn-primary" : ""
                     }`}
-                    onClick={() => handleOnClick(category.id)}
+                    onClick={() => handleTabCategory(category.id)}
                   >
                     {category.name}
                   </button>
