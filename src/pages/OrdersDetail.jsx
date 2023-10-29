@@ -1,5 +1,3 @@
-import "react-datepicker/dist/react-datepicker.css";
-
 import { rankItem } from "@tanstack/match-sorter-utils";
 import {
   createColumnHelper,
@@ -9,15 +7,17 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useMemo, useState } from "react";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import { useMemo, useRef, useState } from "react";
 import { Card } from "react-daisyui";
 import { Button, Loading } from "react-daisyui";
+import { AiFillCreditCard, AiOutlineCloudDownload, AiOutlineUser, AiTwotoneCalendar } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
 
 import { getAllItems, getItemById } from "../api/api";
 import { ORDERS } from "../api/routes";
-import imgCalendar from "../img/calendar.png";
 import epochToDate from "../utils/epochToDate";
 import idrPriceFormat from "../utils/idrPriceFormat";
 
@@ -100,12 +100,30 @@ function OrdersDetail() {
     return <Loading></Loading>;
   }
 
+  const pdfRef = useRef();
+  const downloadPDF = () => {
+    const input = pdfRef.current;
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL('img/png');
+      const pdf = new jsPDF('l', 'mm', 'a4', true);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
+      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+      const imgX = (pdfWidth - imgWidth * ratio) / 2;
+      const imgY = 30;
+      pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+      pdf.save(`${dataOrders?.user.name}_invoice.pdf`);
+    });
+  };
+
   return (
     <>
-      <section>
+      <section ref={pdfRef}>
         <div>
           <div>
-            <h2 className="text-center">
+            <h2 className="text-center text-2xl font-bold mb-4">
               <b>Detail Transaksi</b>
             </h2>
           </div>
@@ -114,17 +132,17 @@ function OrdersDetail() {
           <div className="row-auto items-center">
             <div className="mb-lg-0 mb-15 md:w-1/2 lg:w-1/2">
               <span className=" ml-3 mt-3 block">
-                <img src={imgCalendar} alt="" className="inline w-5" />{" "}
+                <AiTwotoneCalendar className="inline mr-2" size={30}></AiTwotoneCalendar>
                 {dataOrders ? epochToDate(dataOrders.createdAt) : ""}
               </span>
-              <span className="ml-3 text-slate-500">
+              <span className="ml-4 text-slate-500">
                 Order ID: {dataOrders?.id}
               </span>
             </div>
 
-            <div className="md:col-span-6 md:ms-auto md:text-right lg:col-span-6">
-              <Button className="mr-4">
-                <a href="#">Print</a>
+            <div className="md:col-span-6 md:ms-auto md:text-right lg:col-span-6 ">
+              <Button className="mr-4 btn btn-primary" onClick={downloadPDF}>
+                <AiOutlineCloudDownload size={40}></AiOutlineCloudDownload>
               </Button>
             </div>
           </div>
@@ -134,8 +152,9 @@ function OrdersDetail() {
                 <Card bordered={false} className="mr-40">
                   <article className="inline-flex items-center md:items-start">
                     <div>
+
                       <Card.Title className="mb-4">
-                        <b>Customer</b>
+                        <AiOutlineUser className="w-5" size={20}></AiOutlineUser><b>Customer</b>
                       </Card.Title>
                       <p className="mb-1">
                         {dataOrders?.user.name}
@@ -153,7 +172,7 @@ function OrdersDetail() {
                   <article className="inline-flex items-center md:items-start">
                     <div>
                       <Card.Title className="mb-4">
-                        <b>Order Info</b>
+                        <AiFillCreditCard className="w-5" size={20}></AiFillCreditCard> <b>Order Info</b>
                       </Card.Title>
                       <p className="mb-1">
                         Payment :{" "}
@@ -167,7 +186,7 @@ function OrdersDetail() {
             </div>
             <div className="overflow-x-auto">
               <table className="table">
-                <thead className="bg-slate-400">
+                <thead className="btn-primary">
                   {table.getHeaderGroups().map((headerGroup) => (
                     <tr key={headerGroup.id}>
                       {headerGroup.headers.map((header) => (
