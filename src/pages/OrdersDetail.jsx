@@ -15,8 +15,8 @@ import { useParams } from "react-router-dom";
 import useSWR from "swr";
 import { Button, Input, Loading, Pagination, Select } from "react-daisyui";
 
-import { getAllItems } from "../api/api";
-import { ORDER_ITEMS } from "../api/routes";
+import { getAllItems, getItemById } from "../api/api";
+import { ORDERS, ORDER_ITEMS } from "../api/routes";
 import ChevronLeftIcon from "../components/icons/ChevronLeftIcon";
 import ChevronLeftLineIcon from "../components/icons/ChevronLeftLineIcon";
 import ChevronRightIcon from "../components/icons/ChevronRightIcon";
@@ -67,14 +67,18 @@ const columns = [
 
 ];
 
-function OrdersDetail(props) {
+function OrdersDetail() {
+    const { id } = useParams();
+
 
     const { isLoading, data } = useSWR(
-        `${ORDER_ITEMS}?_expand=order&_expand=product`,
+        `${ORDERS}/${id}/order-items?_expand=order&_expand=product`,
         getAllItems
     );
-    const { orderId } = useParams();
-
+    const { loadingIs, data: dataOrders } = useSWR(
+        `${ORDERS}/${id}?_expand=payment-method&_expand=user`,
+        getItemById
+    );
 
 
     const [{ pageIndex, pageSize }, setPagination] = useState({
@@ -144,7 +148,7 @@ function OrdersDetail(props) {
         table.setPageSize(Number(event.target.value));
     };
 
-    if (isLoading) {
+    if (isLoading && loadingIs) {
         return <Loading></Loading>;
     }
 
@@ -164,7 +168,7 @@ function OrdersDetail(props) {
                     <div className="row-auto items-center">
                         <div className="lg:w-1/2 md:w-1/2 mb-lg-0 mb-15">
                             <span className=" ml-3 mt-3 block"><img src={imgCalendar} alt="" className="w-5 inline" /> {new Date().toLocaleString()}</span>
-                            <span className="ml-3 text-slate-500">Order ID: 1234</span>
+                            <span className="ml-3 text-slate-500">Order ID: {dataOrders?.id}</span>
                         </div>
 
                         <div className="lg:col-span-6 md:col-span-6 md:ms-auto md:text-right">
@@ -181,9 +185,9 @@ function OrdersDetail(props) {
                                         <div>
                                             <Card.Title className="mb-4"><b>Customer</b></Card.Title>
                                             <p className="mb-1">
-                                                Name<br />
-                                                Email <br />
-                                                Phone
+                                                {dataOrders?.user.name}<br />
+                                                {dataOrders?.user.email}<br />
+                                                {dataOrders?.user.phone}
                                             </p>
                                         </div>
                                     </article>
@@ -195,7 +199,8 @@ function OrdersDetail(props) {
                                         <div>
                                             <Card.Title className="mb-4"><b>Order Info</b></Card.Title>
                                             <p className="mb-1">
-                                                Payment : Method <br />
+
+                                                Payment : {dataOrders ? dataOrders["payment-method"].name : ""} <br />
                                             </p>
                                         </div>
                                     </article>
@@ -246,13 +251,13 @@ function OrdersDetail(props) {
                                         </tr>
                                     ))}
                                     <tr>
-                                        <td colspan="4">
+                                        <td colSpan="4">
                                             <article className="float-right">
                                                 <dl className="mb-[5px]">
                                                     <dt>Total: <b>{idrPriceFormat("1000")}</b></dt>
                                                 </dl>
                                                 <dl className="mb-[5px]">
-                                                    <dt class="text-muted">Status: <span className="badge rounded-pill alert-success text-success">Payment done</span></dt>
+                                                    <dt className="text-muted">Status: <span className="badge rounded-pill alert-success text-success">Payment done</span></dt>
                                                 </dl>
                                             </article>
                                         </td>
