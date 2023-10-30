@@ -13,84 +13,52 @@
   "orders": [
     {
       "userId": 2,
-      "payment-methodId": 1,
-      "totalAmounts": 2,
-      "totalPrice": 174000,
-      "createdAt": 1698226710,
+      "totalAmounts": 8,
+      "payment-methodId": 2,
+      "totalPrice": 260500,
+      "createdAt": 1698634976,
       "id": 1
-    },
-    {
-      "userId": 2,
-      "payment-methodId": 1,
-      "totalAmounts": 2,
-      "totalPrice": 174000,
-      "createdAt": 1698226710,
-      "id": 2
-    },
-    {
-      "userId": 2,
-      "payment-methodId": 1,
-      "totalAmounts": 2,
-      "totalPrice": 174000,
-      "createdAt": 1698226710,
-      "id": 3
-    },
-    {
-      "userId": 2,
-      "totalAmounts": 2,
-      "payment-methodId": 1,
-      "totalPrice": 35000,
-      "createdAt": 1698226710,
-      "id": 4
-    },
-    {
-      "userId": 2,
-      "totalAmounts": 4,
-      "payment-methodId": 3,
-      "totalPrice": 70000,
-      "createdAt": 1698556847,
-      "id": 5
     }
   ],
   "order-items": [
     {
       "orderId": 1,
-      "amounts": 2,
-      "productId": 10,
-      "subTotal": 158000,
-      "createdAt": 1698226710,
+      "amounts": 1,
+      "productId": 2,
+      "subTotal": 15000,
+      "createdAt": 1698634977,
       "id": 1
     },
     {
-      "orderId": 2,
+      "orderId": 1,
       "amounts": 1,
-      "productId": 7,
-      "subTotal": 15000,
-      "createdAt": 1698226710,
+      "productId": 60,
+      "subTotal": 41500,
+      "createdAt": 1698634977,
       "id": 2
     },
     {
-      "orderId": 3,
+      "orderId": 1,
       "amounts": 1,
-      "productId": 8,
+      "productId": 50,
       "subTotal": 20000,
-      "createdAt": 1698226710,
+      "createdAt": 1698634977,
       "id": 3
     },
     {
-      "orderId": 5,
-      "amounts": 2,
-      "productId": 8,
-      "subTotal": 40000,
-      "createdAt": 1698556847,
+      "orderId": 1,
+      "amounts": 1,
+      "productId": 75,
+      "subTotal": 32000,
+      "createdAt": 1698634977,
       "id": 4
     },
     {
-      "orderId": 5,
-      "amounts": 2,
-      "productId": 7,
-      "subTotal": 30000,
-      "createdAt": 1698556847,
+      "orderId": 1,
+      "amounts": 4,
+      "productId": 63,
+      "subTotal": 152000,
+      "createdAt": 1698634977,
       "id": 5
     }
   ],
