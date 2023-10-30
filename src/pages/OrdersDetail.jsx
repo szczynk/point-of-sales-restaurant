@@ -4,8 +4,6 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 import { useMemo, useRef } from "react";
 import { Card } from "react-daisyui";
 import { Button, Loading } from "react-daisyui";
@@ -16,6 +14,7 @@ import {
   AiTwotoneCalendar,
 } from "react-icons/ai";
 import { useParams } from "react-router-dom";
+import { useReactToPrint } from "react-to-print";
 import useSWR from "swr";
 
 import { getAllItems, getItemById } from "../api/api";
@@ -31,8 +30,8 @@ const columns = [
     cell: (info) => <span className="text-base">{info.getValue()}</span>,
   }),
   columnHelper.accessor("product.price", {
-    header: () => <span className="text-base">Harga Per-Unit</span>,
-    cell: (info) => <span className="text-base">{info.getValue()}</span>,
+    header: () => <span className="text-base">Harga Per-Item</span>,
+    cell: (info) => <span className="text-base">{idrPriceFormat(info.getValue())}</span>,
   }),
   columnHelper.accessor("amounts", {
     header: () => <span className="text-base">Quantity</span>,
@@ -40,7 +39,7 @@ const columns = [
   }),
   columnHelper.accessor("subTotal", {
     header: () => <span className="text-base">Sub Total</span>,
-    cell: (info) => <span className="text-base">{info.getValue()}</span>,
+    cell: (info) => <span className="text-base">{idrPriceFormat(info.getValue())}</span>,
   }),
 ];
 
@@ -67,73 +66,60 @@ function OrdersDetail() {
     debugColumns: true,
   });
 
-  const pdfRef = useRef();
-  const downloadPDF = () => {
-    const input = pdfRef.current;
-    html2canvas(input).then((canvas) => {
-      const imgData = canvas.toDataURL("img/png");
-      const pdf = new jsPDF("p", "mm", "a4", true);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
-      const imgWidth = canvas.width;
-      const imgHeight = canvas.height;
-      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
-      const imgX = (pdfWidth - imgWidth * ratio) / 2;
-      const imgY = 30;
-      pdf.addImage(
-        imgData,
-        "PNG",
-        imgX,
-        imgY,
-        imgWidth * ratio,
-        imgHeight * ratio,
-      );
-      pdf.save(`${dataOrders?.user.name}_invoice.pdf`);
-    });
-  };
 
   if (isLoading && isLoadingOrder) {
     return <Loading></Loading>;
   }
 
+  // membuat referensi menggunakan useRef() dengan nama printRef. Referensi ini akan digunakan untuk menunjuk ke elemen HTML dalam komponen
+  const printRef = useRef();
+  //  menggunakan useReactToPrint dari pustaka "react-to-print" untuk mencetak konten yang terkandung dalam elemen yang dirujuk oleh printRef
+  const handlePrint = useReactToPrint({
+    content: () => printRef.current
+  });
+
+
   return (
     <>
-      <section ref={pdfRef}>
-        <div>
-          <div>
-            <h2 className="mb-4 text-center text-2xl font-bold">
-              <b>Detail Transaksi</b>
-            </h2>
-          </div>
-        </div>
+      <section>
         <Card>
           <div className="row-auto items-center">
-            <div className="mb-lg-0 mb-15 md:w-1/2 lg:w-1/2">
-              <span className=" ml-3 mt-3 block">
-                <AiTwotoneCalendar
-                  className="mr-2 inline"
-                  size={30}
-                ></AiTwotoneCalendar>
-                {dataOrders ? epochToDate(dataOrders.createdAt) : ""}
-              </span>
-              <span className="ml-4 text-slate-500">
-                Order ID: {dataOrders?.id}
-              </span>
-            </div>
-
             <div className="md:col-span-6 md:ms-auto md:text-right lg:col-span-6 ">
-              <Button className="btn btn-primary mr-4" onClick={downloadPDF}>
-                <AiOutlineCloudDownload size={40}></AiOutlineCloudDownload>
+              <Button className="btn btn-primary mr-4 mt-4" onClick={handlePrint}>
+                <AiOutlineCloudDownload size={40}>
+                </AiOutlineCloudDownload>
               </Button>
             </div>
           </div>
-          <Card.Body>
+          <h2 className="mb-4 text-center text-2xl font-bold">
+            <b>Detail Transaksi</b>
+            <span className=" text-slate-500 block">
+              Order ID : {dataOrders?.id}
+            </span>
+          </h2>
+          <Card.Body ref={printRef}>
             <div className="mb-20 mt-10 flex justify-center space-x-4 md:mb-4">
               <div className="md:flex">
                 <Card bordered={false} className="mr-40">
                   <article className="inline-flex items-center md:items-start">
                     <div>
-                      <Card.Title className="mb-4">
+                      <Card.Title className="mb-4 ">
+                        <AiTwotoneCalendar
+                          className="mr-2 inline"
+                          size={30}
+                        ></AiTwotoneCalendar>
+                        <b>Tanggal Transaksi</b>
+                      </Card.Title>
+                      <p className="mb-1">
+                        {dataOrders ? epochToDate(dataOrders.createdAt) : ""}
+                      </p>
+                    </div>
+                  </article>
+                </Card>
+                <Card bordered={false} className="mr-40">
+                  <article className="inline-flex items-center md:items-start">
+                    <div>
+                      <Card.Title className="mb-4 ">
                         <AiOutlineUser
                           className="w-5"
                           size={20}
@@ -174,7 +160,7 @@ function OrdersDetail() {
             </div>
             <div className="overflow-x-auto">
               <table className="table">
-                <thead className="btn-primary">
+                <thead className="bg-slate-300">
                   {table.getHeaderGroups().map((headerGroup) => (
                     <tr key={headerGroup.id}>
                       {headerGroup.headers.map((header) => (
@@ -206,7 +192,7 @@ function OrdersDetail() {
                     </tr>
                   ))}
                 </thead>
-                <tbody>
+                <tbody className="">
                   {table.getRowModel().rows.map((row) => (
                     <tr key={row.id}>
                       {row.getVisibleCells().map((cell) => (
@@ -220,24 +206,24 @@ function OrdersDetail() {
                     </tr>
                   ))}
                   <tr>
-                    <td colSpan="4">
-                      <article className="float-right">
+                    <td colSpan="3" className="text-lg">
+                      <article className="float-right mr-20">
                         <dl className="mb-[5px]">
                           <dt>
-                            Total:{" "}
-                            <b>{idrPriceFormat(dataOrders?.totalPrice)}</b>
+                            <b>Total :</b>
                           </dt>
                         </dl>
                         <dl className="mb-[5px]">
                           <dt className="text-muted">
-                            Status:{" "}
-                            <span className="rounded-pill badge alert-success text-success">
-                              Payment done
-                            </span>
+                            Status :
                           </dt>
                         </dl>
                       </article>
                     </td>
+                    <div className="mt-[10px] text-lg"><b>{idrPriceFormat(dataOrders?.totalPrice)}</b></div>
+                    <div className="text-leg mt-[10px] mb-[5px]"><span className="rounded-pill badge alert-success text-success">
+                      Payment done
+                    </span></div>
                   </tr>
                 </tbody>
               </table>
@@ -248,5 +234,6 @@ function OrdersDetail() {
     </>
   );
 }
+
 
 export default OrdersDetail;
