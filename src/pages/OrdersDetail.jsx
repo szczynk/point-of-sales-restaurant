@@ -1,18 +1,20 @@
-import { rankItem } from "@tanstack/match-sorter-utils";
 import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
-import { useMemo, useRef, useState } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import { useMemo, useRef } from "react";
 import { Card } from "react-daisyui";
 import { Button, Loading } from "react-daisyui";
-import { AiFillCreditCard, AiOutlineCloudDownload, AiOutlineUser, AiTwotoneCalendar } from "react-icons/ai";
+import {
+  AiFillCreditCard,
+  AiOutlineCloudDownload,
+  AiOutlineUser,
+  AiTwotoneCalendar,
+} from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
 
@@ -49,63 +51,28 @@ function OrdersDetail() {
     `${ORDERS}/${id}/order-items?_expand=order&_expand=product`,
     getAllItems,
   );
-  const { loadingIs, data: dataOrders } = useSWR(
+  const { isLoadingOrder, data: dataOrders } = useSWR(
     `${ORDERS}/${id}?_expand=payment-method&_expand=user`,
     getItemById,
   );
 
-  const [{ pageIndex, pageSize }, setPagination] = useState({
-    pageIndex: 0,
-    pageSize: 10,
-  });
-
   const defaultData = useMemo(() => [], []);
-
-  const pagination = useMemo(
-    () => ({
-      pageIndex,
-      pageSize,
-    }),
-    [pageIndex, pageSize],
-  );
-
-  const [globalFilter, setGlobalFilter] = useState("");
-
-  const fuzzyFilter = (row, columnId, value, addMeta) => {
-    const itemRank = rankItem(row.getValue(columnId), value);
-    addMeta(itemRank);
-
-    return itemRank.passed;
-  };
 
   const table = useReactTable({
     data: data ?? defaultData,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    onGlobalFilterChange: setGlobalFilter,
-    globalFilterFn: fuzzyFilter,
-    onPaginationChange: setPagination,
-    state: {
-      pagination,
-      globalFilter,
-    },
     debugTable: true,
     debugHeaders: true,
     debugColumns: true,
   });
 
-  if (isLoading && loadingIs) {
-    return <Loading></Loading>;
-  }
-
   const pdfRef = useRef();
   const downloadPDF = () => {
     const input = pdfRef.current;
     html2canvas(input).then((canvas) => {
-      const imgData = canvas.toDataURL('img/png');
-      const pdf = new jsPDF('l', 'mm', 'a4', true);
+      const imgData = canvas.toDataURL("img/png");
+      const pdf = new jsPDF("p", "mm", "a4", true);
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = pdf.internal.pageSize.getHeight();
       const imgWidth = canvas.width;
@@ -113,17 +80,28 @@ function OrdersDetail() {
       const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
       const imgX = (pdfWidth - imgWidth * ratio) / 2;
       const imgY = 30;
-      pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+      pdf.addImage(
+        imgData,
+        "PNG",
+        imgX,
+        imgY,
+        imgWidth * ratio,
+        imgHeight * ratio,
+      );
       pdf.save(`${dataOrders?.user.name}_invoice.pdf`);
     });
   };
+
+  if (isLoading && isLoadingOrder) {
+    return <Loading></Loading>;
+  }
 
   return (
     <>
       <section ref={pdfRef}>
         <div>
           <div>
-            <h2 className="text-center text-2xl font-bold mb-4">
+            <h2 className="mb-4 text-center text-2xl font-bold">
               <b>Detail Transaksi</b>
             </h2>
           </div>
@@ -132,7 +110,10 @@ function OrdersDetail() {
           <div className="row-auto items-center">
             <div className="mb-lg-0 mb-15 md:w-1/2 lg:w-1/2">
               <span className=" ml-3 mt-3 block">
-                <AiTwotoneCalendar className="inline mr-2" size={30}></AiTwotoneCalendar>
+                <AiTwotoneCalendar
+                  className="mr-2 inline"
+                  size={30}
+                ></AiTwotoneCalendar>
                 {dataOrders ? epochToDate(dataOrders.createdAt) : ""}
               </span>
               <span className="ml-4 text-slate-500">
@@ -141,7 +122,7 @@ function OrdersDetail() {
             </div>
 
             <div className="md:col-span-6 md:ms-auto md:text-right lg:col-span-6 ">
-              <Button className="mr-4 btn btn-primary" onClick={downloadPDF}>
+              <Button className="btn btn-primary mr-4" onClick={downloadPDF}>
                 <AiOutlineCloudDownload size={40}></AiOutlineCloudDownload>
               </Button>
             </div>
@@ -152,9 +133,12 @@ function OrdersDetail() {
                 <Card bordered={false} className="mr-40">
                   <article className="inline-flex items-center md:items-start">
                     <div>
-
                       <Card.Title className="mb-4">
-                        <AiOutlineUser className="w-5" size={20}></AiOutlineUser><b>Customer</b>
+                        <AiOutlineUser
+                          className="w-5"
+                          size={20}
+                        ></AiOutlineUser>
+                        <b>Customer</b>
                       </Card.Title>
                       <p className="mb-1">
                         {dataOrders?.user.name}
@@ -172,7 +156,11 @@ function OrdersDetail() {
                   <article className="inline-flex items-center md:items-start">
                     <div>
                       <Card.Title className="mb-4">
-                        <AiFillCreditCard className="w-5" size={20}></AiFillCreditCard> <b>Order Info</b>
+                        <AiFillCreditCard
+                          className="w-5"
+                          size={20}
+                        ></AiFillCreditCard>{" "}
+                        <b>Order Info</b>
                       </Card.Title>
                       <p className="mb-1">
                         Payment :{" "}
