@@ -101,7 +101,7 @@
     },
     {
       "id": 2,
-      "name": "Steak"
+      "name": "DBOWL"
     },
     {
       "id": 3,
@@ -109,11 +109,11 @@
     },
     {
       "id": 4,
-      "name": "Sup & Soto"
+      "name": "Sup"
     },
     {
       "id": 5,
-      "name": "Lontong"
+      "name": "Sapi"
     },
     {
       "id": 6,
@@ -343,6 +343,690 @@
       "minOrder": 1,
       "createdAt": 1698392940,
       "id": 23
+    },
+    {
+      "name": "Nasi Ayam Fillet Saus Asam Manis",
+      "price": 37000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2022/09/Nasi-Ayam-fillet-Asam-manis.jpg",
+      "categoryId": 1,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 24
+    },
+    {
+      "name": "Nasi Ayam Cabe Ijo",
+      "price": 39500,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Nasi-Ayam-Cabe-Ijo.jpg",
+      "categoryId": 1,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 25
+    },
+    {
+      "name": "Nasi Ayam Goreng Mentega",
+      "price": 36000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Nasi-ayam-fillet-mentega.jpg",
+      "categoryId": 1,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 26
+    },
+    {
+      "name": "Nasi Ayam Goreng Terasi",
+      "price": 40000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Nasi-ayam-goreng-terasi.jpg",
+      "categoryId": 1,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 27
+    },
+    {
+      "name": "Nasi Ayam Fillet Cabe Garam",
+      "price": 35000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Nasi-ayam-fillet-cabe-garam.jpg",
+      "categoryId": 1,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 28
+    },
+    {
+      "name": "Nasi Ayam Fillet Saus Telur Asin",
+      "price": 37000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Nasi-ayam-fillet-telur-asin.jpg",
+      "categoryId": 1,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 29
+    },
+    {
+      "name": "Nasi Ayam Geprek Sambal Korek",
+      "price": 38000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Nasi-Ayam-Geprek-Sambal-Korek.jpg",
+      "categoryId": 1,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 30
+    },
+    {
+      "name": "DBOWL 4 : Ayam Krispi Telur Asin",
+      "price": 28000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/DBOWL-4-AYAM-SAUS-TELUR-ASIN.jpg",
+      "categoryId": 2,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 31
+    },
+    {
+      "name": "DBOWL 3 : Ayam Krispi Saus Madu",
+      "price": 25000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/DBOWL-3-AYAM-SAUS-MADU.jpg",
+      "categoryId": 2,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 32
+    },
+    {
+      "name": "DBOWL 2 : Ayam Krispi Sambal Matah",
+      "price": 25000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/DBOWL-2-AYAM-SAMBAL-MATAH.jpg",
+      "categoryId": 2,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 33
+    },
+    {
+      "name": "DBOWL 1 : Ayam Krispi Sambal Korek",
+      "price": 25000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/DBOWL-1-AYAM-SAMBAL-KOREK.jpg",
+      "categoryId": 2,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 34
+    },
+    {
+      "name": "Ayam Goreng Rempah",
+      "price": 20000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Ayam-Rempah.jpg",
+      "categoryId": 1,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 35
+    },
+    {
+      "name": "Ayam Fillet Saus Telur Asin",
+      "price": 24500,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Ayam-fillet-telur-asin.jpg",
+      "categoryId": 1,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 36
+    },
+    {
+      "name": "Ayam Fillet Cabe Garam",
+      "price": 22500,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Ayam-fillet-cabe-garam.jpg",
+      "categoryId": 1,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 37
+    },
+    {
+      "name": "Ayam Goreng Mentega",
+      "price": 24000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Ayam-Goreng-Mentega.jpg",
+      "categoryId": 1,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 38
+    },
+    {
+      "name": "Ayam Fillet Sambal Matah",
+      "price": 21000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Ayam-fillet-sambal-matah.jpg",
+      "categoryId": 1,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 39
+    },
+    {
+      "name": "Ayam Goreng Terasi",
+      "price": 23000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Ayam-grg-terasi.jpg",
+      "categoryId": 1,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 40
+    },
+    {
+      "name": "Ayam Cabe Ijo",
+      "price": 19000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Ayam-Cabe-Ijo.jpg",
+      "categoryId": 1,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 41
+    },
+    {
+      "name": "Ayam Fillet Saus Asam Manis",
+      "price": 26500,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/AYAM-FILLET-SAUS-ASAM-MANIS.jpg",
+      "categoryId": 1,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 42
+    },
+    {
+      "name": "Bakmi Goreng Special",
+      "price": 25500,
+      "image": "https://dcostseafood.id/wp-content/uploads/2023/04/Bakmi-goreng-spesial-2.jpg",
+      "categoryId": 3,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 43
+    },
+    {
+      "name": "Bakmi Goreng Telor",
+      "price": 20500,
+      "image": "https://dcostseafood.id/wp-content/uploads/2022/04/Bakmi-goreng-spesial.jpg",
+      "categoryId": 3,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 44
+    },
+    {
+      "name": "Bakmi Goreng Seafood",
+      "price": 34500,
+      "image": "https://dcostseafood.id/wp-content/uploads/2019/02/Bakmi-goreng-seafood-2.jpg",
+      "categoryId": 3,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 45
+    },
+    {
+      "name": "DBOWL 8 : Honey Chicken Wings",
+      "price": 19000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2023/03/DBOWL-8-Honey-Chicken-Wings.jpg",
+      "categoryId": 1,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 46
+    },
+    {
+      "name": "Honey Chicken Wings",
+      "price": 23000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Honey-Chicken-Wings.jpg",
+      "categoryId": 1,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 47
+    },
+    {
+      "name": "Nasi Goreng Special",
+      "price": 37000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2023/04/Nasi-Goreng-spesial-2.jpg",
+      "categoryId": 6,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 48
+    },
+    {
+      "name": "Nasi Goreng Seafood Oriental",
+      "price": 40000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2023/04/Nasi-Goreng-seafood-Oriental.jpg",
+      "categoryId": 6,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 49
+    },
+    {
+      "name": "Nasi Goreng Telor",
+      "price": 20000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2022/04/Nasi-Goreng-spesial.jpg",
+      "categoryId": 6,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 50
+    },
+    {
+      "name": "Nasi Goreng Tom Yum",
+      "price": 30000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2019/04/Nasi-Goreng-Tom-Yum.jpg",
+      "categoryId": 6,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 51
+    },
+    {
+      "name": "Nasi Goreng Seafood",
+      "price": 34000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2017/12/Nasi-Goreng-seafood-2.jpg",
+      "categoryId": 6,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 52
+    },
+    {
+      "name": "Kroket",
+      "price": 25000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2023/07/Kroket.jpg",
+      "categoryId": 7,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 53
+    },
+    {
+      "name": "Tape Roll",
+      "price": 20000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2019/04/Tape-Roll-New.jpg",
+      "categoryId": 7,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 54
+    },
+    {
+      "name": "Pisang Goreng Salju",
+      "price": 18500,
+      "image": "https://dcostseafood.id/wp-content/uploads/2022/01/Pisang-Goreng-Salju.jpg",
+      "categoryId": 7,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 55
+    },
+    {
+      "name": "Tahu Goreng Kipas",
+      "price": 16500,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Tahu-goreng-Kipas.jpg",
+      "categoryId": 7,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 56
+    },
+    {
+      "name": "Risoles",
+      "price": 13500,
+      "image": "https://dcostseafood.id/wp-content/uploads/2019/02/Risoles-1.jpg",
+      "categoryId": 7,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 57
+    },
+    {
+      "name": "Singkong Goreng",
+      "price": 15500,
+      "image": "https://dcostseafood.id/wp-content/uploads/2019/02/Singkong-Goreng.jpg",
+      "categoryId": 7,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 58
+    },
+    {
+      "name": "Sup Bakso Ikan",
+      "price": 22500,
+      "image": "https://dcostseafood.id/wp-content/uploads/2022/08/Soup-Bakso-Ikan.jpg",
+      "categoryId": 4,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 59
+    },
+    {
+      "name": "Sup Kerapu Asam Pedas",
+      "price": 41500,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Sop-Kerapu-Asam-Pedas.jpg",
+      "categoryId": 4,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 60
+    },
+    {
+      "name": "Bihun Goreng Special",
+      "price": 27000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2023/04/Bihun-goreng-spesial-2.jpg",
+      "categoryId": 3,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 61
+    },
+    {
+      "name": "Bihun Godog",
+      "price": 32000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2022/08/Bihun-Godog.jpg",
+      "categoryId": 3,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 62
+    },
+    {
+      "name": "Bihun Goreng Seafood",
+      "price": 38000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2022/04/Bihun-goreng-seafood.jpg",
+      "categoryId": 3,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 63
+    },
+    {
+      "name": "Bihun Goreng Telor",
+      "price": 22000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2022/04/Bihun-goreng-spesial.jpg",
+      "categoryId": 3,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 64
+    },
+    {
+      "name": "Tom Yum Seafood",
+      "price": 45000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2019/04/Tom-yum-kung.jpg",
+      "categoryId": 9,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 65
+    },
+    {
+      "name": "Platter Seafood Saus Padang",
+      "price": 50000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Platter-saus-padang.jpg",
+      "categoryId": 9,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 66
+    },
+    {
+      "name": "Platter Seafood Asam Pedas",
+      "price": 47000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Platter-Asam-Pedas.jpg",
+      "categoryId": 9,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 67
+    },
+    {
+      "name": "Platter Seafood Goreng",
+      "price": 43000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Platter-Seafood-Goreng-2.jpg",
+      "categoryId": 9,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 68
+    },
+    {
+      "name": "Capcay Seafood",
+      "price": 31000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2019/04/Capcay-Seafood.jpg",
+      "categoryId": 8,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 69
+    },
+    {
+      "name": "Sapo Tahu Seafood",
+      "price": 48000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2019/04/Sapo-Tahu-Seafood.jpg",
+      "categoryId": 9,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 70
+    },
+    {
+      "name": "Sayur Asem",
+      "price": 21000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2019/04/Sayur-Asem.jpg",
+      "categoryId": 8,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 71
+    },
+    {
+      "name": "Kangkung Bawang Putih",
+      "price": 23000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2019/04/Kangkung-bawang-Putih.jpg",
+      "categoryId": 8,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 72
+    },
+    {
+      "name": "Kangkung Balacan",
+      "price": 28000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2019/04/Kangkung-balacan.jpg",
+      "categoryId": 8,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 73
+    },
+    {
+      "name": "Buncis Muda Ala Singapore",
+      "price": 33000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2019/04/Buncis-Singapore.jpg",
+      "categoryId": 8,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 74
+    },
+    {
+      "name": "Buncis Goreng Krispi",
+      "price": 32000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2019/02/IDV-buncis-goreng-crispy.jpg",
+      "categoryId": 8,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 75
+    },
+    {
+      "name": "Tauge Cah Tahu",
+      "price": 25000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2019/02/Tauge-Cah-Tahu.jpg",
+      "categoryId": 8,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 76
+    },
+    {
+      "name": "Nasi Sapi Saus Mentega",
+      "price": 38000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2023/07/Nasi-Sapi-Goreng-Mentega.jpg",
+      "categoryId": 5,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 77
+    },
+    {
+      "name": "Nasi Sapi Goreng Sambal Korek",
+      "price": 39500,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Nasi-sapi-goreng-sambal-korek.jpg",
+      "categoryId": 5,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 78
+    },
+    {
+      "name": "Nasi Bistik Sapi",
+      "price": 41000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Nasi-bistik-sapi-mentega.jpg",
+      "categoryId": 5,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 79
+    },
+    {
+      "name": "Nasi Sapi Lada Hitam",
+      "price": 44000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Nasi-sapi-lada-hitam.jpg",
+      "categoryId": 5,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 80
+    },
+    {
+      "name": "Bistik Sapi Mentega",
+      "price": 62000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Bistik-sapi-mentega.jpg",
+      "categoryId": 5,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 81
+    },
+    {
+      "name": "Ikan Bawal Goreng Sambal Matah",
+      "price": 55000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2022/08/Ikan-Bawal-Bakar-Sambal-Matah.jpg",
+      "categoryId": 9,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 82
+    },
+    {
+      "name": "Ikan Bawal Goreng Sambal Ijo",
+      "price": 57000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2022/08/Ikan-Bawal-Goreng-Sambal-Hijau.jpg",
+      "categoryId": 9,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 83
+    },
+    {
+      "name": "Nasi Ikan Fillet Saus Telur Asin",
+      "price": 43000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Nasi-ikan-fillet-telur-asin.jpg",
+      "categoryId": 9,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 85
+    },
+    {
+      "name": "Nasi Ikan Fillet Cabe Garam",
+      "price": 40000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Nasi-ikan-fillet-cabe-garam.jpg",
+      "categoryId": 9,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 86
+    },
+    {
+      "name": "Nasi Ikan Gulai",
+      "price": 38000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Nasi-Ikan-Gulai.jpg",
+      "categoryId": 9,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 87
+    },
+    {
+      "name": "Ikan Kerapu Goreng Cabe Garam",
+      "price": 64000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Ikan-Kerapu-Goreng-Cabe-Garam.jpg",
+      "categoryId": 9,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 88
+    },
+    {
+      "name": "Ikan Gurami Goreng Saus Asam Manis",
+      "price": 71000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Ikan-Gurami-Asam-Manis.jpg",
+      "categoryId": 9,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 89
+    },
+    {
+      "name": "Ikan Gurami Bakar Pedas",
+      "price": 68000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Ikan-Gurami-bakar-pedas.jpg",
+      "categoryId": 9,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 90
+    },
+    {
+      "name": "DBOWL 5 : Ikan Krispi Saus Madu",
+      "price": 26000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/DBOWL-5-IKAN-KRISPI-SAUS-MADU.jpg",
+      "categoryId": 2,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 91
+    },
+    {
+      "name": "DBOWL 6 : Ikan Krispi Telur Asin",
+      "price": 28000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/DBOWL-6-IKAN-KRISPI-SAUS-TELUR-ASIN.jpg",
+      "categoryId": 2,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 92
+    },
+    {
+      "name": "DBOWL 7 : Udang Krispi Telur Asin",
+      "price": 29000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/DBOWL-7-UDANG-SAUS-TELUR-ASIN.jpg",
+      "categoryId": 2,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 93
+    },
+    {
+      "name": "DBOWL 9 : Ikan Fillet Sambal Mangga",
+      "price": 30000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2023/03/DBOWL-9-Ikan-fillet-sambal-mangga.jpg",
+      "categoryId": 2,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 94
+    },
+    {
+      "name": "Udang Saus Lada Hitam",
+      "price": 42000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Udang-Saus-Lada-Hitam.jpg",
+      "categoryId": 9,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 95
+    },
+    {
+      "name": "Udang Goreng Mentega",
+      "price": 40000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2022/01/Udang-Goreng-Mentega.jpg",
+      "categoryId": 9,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 96
+    },
+    {
+      "name": "Udang Bakar Madu",
+      "price": 44000,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Udang-Bakar-Madu.jpg",
+      "categoryId": 9,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 97
+    },
+    {
+      "name": "Cumi Goreng Kepala Cabe Garam",
+      "price": 42500,
+      "image": "https://dcostseafood.id/wp-content/uploads/2022/03/Cumi-gr-kepala-cabe-garam.jpg",
+      "categoryId": 9,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 98
+    },
+    {
+      "name": "Cumi Saus Padang",
+      "price": 47500,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/Cumi-saos-padang.jpg",
+      "categoryId": 9,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 99
+    },
+    {
+      "name": "Cumi Goreng Saus Telur Asin",
+      "price": 50500,
+      "image": "https://dcostseafood.id/wp-content/uploads/2021/12/CUMI-GORENG-TELUR-ASIN.jpg",
+      "categoryId": 9,
+      "minOrder": 1,
+      "createdAt": 1698392940,
+      "id": 100
     }
   ],
   "payment-methods": [
