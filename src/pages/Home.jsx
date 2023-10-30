@@ -16,6 +16,7 @@ import {
   addItem as addCartItem,
   onDecrement as onDecrementItem,
   onIncrement as onIncrementItem,
+  removeAllItems,
   removeItem as removeCartItem,
 } from "../redux/reducers/cartSlice";
 import idrPriceFormat from "../utils/idrPriceFormat";
@@ -237,6 +238,12 @@ function Home() {
 
   const { items, subTotalProductPrice } = useSelector((state) => state.cart);
 
+  const dispatch = useDispatch();
+
+  const handleRemoveAllItems = () => {
+    dispatch(removeAllItems());
+  };
+
   const navigate = useNavigate();
 
   const handleBayar = () => {
@@ -334,8 +341,15 @@ function Home() {
 
           <div className="card card-compact mb-6 shadow-2xl md:mb-0">
             <div className="card-body">
-              <div className="h-16 pb-4 text-center text-2xl font-bold">
-                Daftar Pesanan
+              <div className="flex-warp flex items-center justify-between gap-2 pb-4 text-center">
+                <div className="text-2xl font-bold">Daftar Pesanan</div>
+                <button
+                  type="button"
+                  className="btn px-3"
+                  onClick={handleRemoveAllItems}
+                >
+                  <FaTrash className="h-5 w-5 fill-primary"></FaTrash>
+                </button>
               </div>
               <div className="h-[calc(100vh_-_236px)] overflow-y-auto pr-2">
                 {items?.map((item) => (

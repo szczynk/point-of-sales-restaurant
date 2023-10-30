@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import { Input } from "react-daisyui";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 
 import { createItem, getAllItems } from "../api/api";
 import { ORDER_ITEMS, ORDERS, PAYMENT_METHODS } from "../api/routes";
+import Modal from "../components/Modal";
 import { removeAllItems } from "../redux/reducers/cartSlice";
 import idrPriceFormat from "../utils/idrPriceFormat";
 
@@ -97,8 +98,21 @@ function Payment() {
   }, [watch]);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const [{ isModalOpen, modalTitle, modalText }, setModal] = useState({
+    isModalOpen: false,
+    modalTitle: "",
+    modalText: "",
+  });
+  const handleModalClose = () => {
+    setModal({ isModalOpen: false, modalTitle: "", modalText: "" });
+    console.log("to /");
+    dispatch(removeAllItems());
+    navigate("/", { replace: true });
+  };
 
   const onSubmit = async (data) => {
     console.log("data", data);
@@ -142,15 +156,20 @@ function Payment() {
     } catch (error) {
       console.log(error);
       setIsLoading(false);
+      setModal({
+        isModalOpen: false,
+        modalTitle: "Error",
+        modalText: error.message,
+      });
     } finally {
       setIsLoading(false);
-      dispatch(removeAllItems());
+      setModal({
+        isModalOpen: true,
+        modalTitle: "Sukses",
+        modalText: "Pembayaran Telah Sukses",
+      });
     }
   };
-
-  if (subTotalProductPrice === 0) {
-    return <Navigate to={"/"} replace></Navigate>;
-  }
 
   return (
     <>
@@ -182,11 +201,11 @@ function Payment() {
               noValidate
               onSubmit={handleSubmit(onSubmit)}
             >
-              <div className="h-16 pb-4 text-center text-2xl font-bold">
+              <div className="pb-2 text-center text-2xl font-bold">
                 Pembayaran
               </div>
 
-              <div className="pb-4">
+              <div className="pb-2">
                 <div className="flex flex-wrap items-center justify-between gap-3 font-bold">
                   <span className="text-xl font-bold">Total</span>
                   <span className="text-xl font-bold">
@@ -195,7 +214,7 @@ function Payment() {
                 </div>
               </div>
 
-              <div className="pb-4">
+              <div className="pb-2">
                 <label className="label">
                   <span className="label-text text-xl font-bold">Tipe</span>
                 </label>
@@ -215,7 +234,7 @@ function Payment() {
                 </div>
               </div>
 
-              <div className="pb-4">
+              <div className="pb-2">
                 <label className="label">
                   <span className="label-text text-xl font-bold">Dibayar</span>
                 </label>
@@ -226,7 +245,7 @@ function Payment() {
                 ></Input>
               </div>
 
-              <div className="pb-4">
+              <div className="pb-2">
                 <div
                   className={`flex flex-wrap items-center justify-between gap-3 font-bold ${
                     kembalian() === 0 ? "opacity-0" : "opacity-100"
@@ -239,19 +258,27 @@ function Payment() {
                 </div>
               </div>
 
-              <div>
-                <button type="submit" className="btn btn-primary btn-block">
-                  {isLoading ? (
-                    <span className="loading loading-spinner"></span>
-                  ) : (
-                    "bayar"
-                  )}
-                </button>
-              </div>
+              <button
+                type="submit"
+                className="btn btn-primary btn-block mt-auto"
+                disabled={subTotalProductPrice > values.dibayar}
+              >
+                {isLoading ? (
+                  <span className="loading loading-spinner"></span>
+                ) : (
+                  "bayar"
+                )}
+              </button>
             </form>
           </div>
         </div>
       </div>
+      <Modal
+        isOpen={isModalOpen}
+        handleClose={handleModalClose}
+        title={modalTitle}
+        text={modalText}
+      ></Modal>
     </>
   );
 }

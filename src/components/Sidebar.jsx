@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { bool, func } from "prop-types";
 import { FaChartBar, FaMoneyBill, FaRightFromBracket } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-function Sidebar() {
-  const [slim, setSlim] = useState(true);
-  const toggleSidebar = () => setSlim((prevState) => !prevState);
+function Sidebar(props) {
+  const { slim, toggleSidebar } = props;
+
+  const { pathname } = useLocation();
 
   return (
     <>
@@ -40,7 +41,9 @@ function Sidebar() {
             <div className="mt-3 flex w-full flex-col items-center border-t border-gray-300">
               <Link
                 to={"/"}
-                className="mt-2 flex h-12 w-full items-center rounded px-3 hover:bg-gray-300"
+                className={`mt-2 flex h-12 w-full items-center rounded px-3 ${
+                  pathname === "/" ? "bg-gray-300" : "hover:bg-gray-300"
+                }`}
               >
                 <div className="h-6 w-6">
                   <FaChartBar className="h-6 w-6"></FaChartBar>
@@ -55,7 +58,11 @@ function Sidebar() {
               </Link>
               <Link
                 to={"/transactions"}
-                className="mt-2 flex h-12 w-full items-center rounded px-3 hover:bg-gray-300"
+                className={`mt-2 flex h-12 w-full items-center rounded px-3 ${
+                  pathname === "/transactions"
+                    ? "bg-gray-300"
+                    : "hover:bg-gray-300"
+                }`}
               >
                 <div className="h-6 w-6">
                   <FaMoneyBill className="h-6 w-6"></FaMoneyBill>
@@ -92,5 +99,10 @@ function Sidebar() {
     </>
   );
 }
+
+Sidebar.propTypes = {
+  slim: bool,
+  toggleSidebar: func,
+};
 
 export default Sidebar;

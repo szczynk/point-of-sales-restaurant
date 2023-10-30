@@ -54,7 +54,7 @@ function Login() {
               to={"/"}
               className="btn mx-auto mt-4 border-0 bg-base-100 text-3xl text-primary"
             >
-              <span className="">Kaffee</span>
+              <span className="">Bangsa</span>
             </Link>
 
             <div className="flex items-center justify-between pt-4">

@@ -1115,7 +1115,7 @@
     {
       "name": "Spaghetti Carbonara",
       "price": 36000,
-      "image": "https://assets.tmecosys.com/image/upload/t_web600x528/img/recipe/ras/Assets/61fcb2b2-db84-4a68-abb8-f9fba800bca3/Derivates/fcb48a53-86f0-4697-be75-7b7ce9b49ebe.jpg",
+      "image": "https://www.foodandwine.com/thmb/1ZX-xU4rye8ws10LELAAPji6lWs=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/hd-fw200304_101spaghetti-3e165ba8cd44491fa3357b6ba944bdbe.jpg",
       "categoryId": 2,
       "minOrder": 1,
       "createdAt": 1698392940,
@@ -1124,7 +1124,7 @@
     {
       "name": "Spaghetti Alfredo",
       "price": 31000,
-      "image": "https://plantbasedonabudget.com/wp-content/uploads/2020/10/Fettuccine-Alfredo-Plant-Based-on-a-Budget-12-819x1024.jpg",
+      "image": "https://www.thetravelpalate.com/wp-content/uploads/2020/09/easy-fettuccine-alfredo-31-300x300.jpg",
       "categoryId": 2,
       "minOrder": 1,
       "createdAt": 1698392940,
@@ -1133,7 +1133,7 @@
     {
       "name": "Spaghetti Pesto",
       "price": 38000,
-      "image": "https://asset.kompas.com/crops/txBis5BSFCmifiinx2GadAUawMo=/380x0:7360x4653/750x500/data/photo/2021/08/31/612de7800bd1e.jpg",
+      "image": "https://alpineella.com/wp-content/uploads/2023/08/featured-image-pasta-al-pesto-300x300.jpg",
       "categoryId": 2,
       "minOrder": 1,
       "createdAt": 1698392940,
@@ -1241,8 +1241,8 @@
     {
       "name": "Spaghetti Amatriciana",
       "price": 34500,
-      "image": "https://marleyspoon.com/media/recipes/253339/main_photos/large/pasta_all_amatriciana-7bb5c397aef16025fd76e6b97a06ff1f.jpeg",
-      "categoryId": 1,
+      "image": "https://www.kitchensanctuary.com/wp-content/uploads/2017/04/Amatriciana-pasta-recipe-square-FS-300x300-1.jpg",
+      "categoryId": 2,
       "minOrder": 1,
       "createdAt": 1698392940,
       "id": 46
