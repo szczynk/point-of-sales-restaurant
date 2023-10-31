@@ -261,7 +261,7 @@ function Payment() {
               <button
                 type="submit"
                 className="btn btn-primary btn-block mt-auto"
-                disabled={kembalian() <= 0}
+                disabled={kembalian() < 0}
               >
                 {isLoading ? (
                   <span className="loading loading-spinner"></span>
