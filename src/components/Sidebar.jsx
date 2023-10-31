@@ -9,9 +9,9 @@ function Sidebar(props) {
 
   return (
     <>
-      <aside className="">
+      <aside className="overflow-y-auto">
         <div
-          className={`flex h-full flex-col items-center overflow-hidden transition-all ${
+          className={`flex h-full flex-col items-center transition-all ${
             slim ? "w-16" : "w-40"
           }`}
         >

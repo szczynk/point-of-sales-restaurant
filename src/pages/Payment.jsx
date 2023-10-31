@@ -248,7 +248,7 @@ function Payment() {
               <div className="pb-2">
                 <div
                   className={`flex flex-wrap items-center justify-between gap-3 font-bold ${
-                    kembalian() === 0 ? "opacity-0" : "opacity-100"
+                    kembalian() <= 0 ? "opacity-0" : "opacity-100"
                   }`}
                 >
                   <span className="text-xl font-bold">Kembalian</span>
@@ -261,7 +261,7 @@ function Payment() {
               <button
                 type="submit"
                 className="btn btn-primary btn-block mt-auto"
-                disabled={subTotalProductPrice > values.dibayar}
+                disabled={kembalian() <= 0}
               >
                 {isLoading ? (
                   <span className="loading loading-spinner"></span>

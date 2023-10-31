@@ -2,6 +2,7 @@ import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { useMemo, useRef } from "react";
@@ -12,6 +13,7 @@ import {
   AiOutlineUser,
   AiTwotoneCalendar,
 } from "react-icons/ai";
+import { FaArrowDownLong, FaArrowUpLong } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 import useSWR from "swr";
@@ -64,6 +66,7 @@ function OrdersDetail() {
     data: data ?? defaultData,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
     debugTable: true,
     debugHeaders: true,
     debugColumns: true,
@@ -179,7 +182,7 @@ function OrdersDetail() {
                               <div
                                 {...{
                                   className: header.column.getCanSort()
-                                    ? "cursor-pointer select-none"
+                                    ? "cursor-pointer select-none flex gap-2 items-center"
                                     : "",
                                   onClick:
                                     header.column.getToggleSortingHandler(),
@@ -190,9 +193,11 @@ function OrdersDetail() {
                                   header.getContext(),
                                 )}
                                 {{
-                                  asc: " 🔼",
-                                  desc: " 🔽",
-                                }[header.column.getIsSorted()] ?? null}
+                                  asc: <FaArrowUpLong></FaArrowUpLong>,
+                                  desc: <FaArrowDownLong></FaArrowDownLong>,
+                                }[header.column.getIsSorted()] ?? (
+                                  <div className="w-3"></div>
+                                )}
                               </div>
                             </>
                           )}

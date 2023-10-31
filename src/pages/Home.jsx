@@ -1,8 +1,5 @@
-// import CardComponents from "../components/Card";
-// import NavbarComponents from '../components/Navbar';
-
 import { object } from "prop-types";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Select } from "react-daisyui";
 import { FaArrowRotateRight, FaMinus, FaPlus, FaTrash } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
@@ -42,7 +39,7 @@ function ProductCard(props) {
   return (
     <>
       <button
-        className="pop-effect rounded-2xl shadow-2xl"
+        className="pop-effect h-fit rounded-2xl shadow-2xl"
         onClick={handleOnClick}
       >
         <figure className="rounded-2xl">
@@ -177,14 +174,14 @@ function Home() {
 
   const [tabCategory, setTabCategory] = useState(0);
 
-  const handleTabCategory = (id) => {
-    setFilterAndSort((prevFilter) => ({ ...prevFilter, kategori: id }));
-    setTabCategory(id);
-  };
+  const handleTabCategory = useCallback((id) => {
+    return () => {
+      setFilterAndSort((prevFilter) => ({ ...prevFilter, kategori: id }));
+      setTabCategory(id);
+    };
+  }, []);
 
-  const [processedProducts, setProcessedProducts] = useState([]);
-
-  useEffect(() => {
+  const processedProducts = useMemo(() => {
     if (products) {
       let filteredProducts = [...products];
 
@@ -219,7 +216,7 @@ function Home() {
         }
       }
 
-      setProcessedProducts(filteredProducts);
+      return filteredProducts;
     }
   }, [
     filterAndSort.judul,
@@ -254,8 +251,6 @@ function Home() {
 
   return (
     <>
-      {/* <NavbarComponents /> */}
-      {/* <CardComponents /> */}
       <div className="flex flex-wrap">
         <div className="w-full md:mb-0 md:min-w-[60%] md:max-w-[60%]">
           <div className="card card-compact w-full shadow-2xl">
@@ -324,7 +319,7 @@ function Home() {
                     className={`btn ${
                       tabCategory === category.id ? "btn-primary" : ""
                     }`}
-                    onClick={() => handleTabCategory(category.id)}
+                    onClick={handleTabCategory(category.id)}
                   >
                     {category.name}
                   </button>

@@ -19,7 +19,11 @@ import {
   CgPushChevronLeft,
   CgPushChevronRight,
 } from "react-icons/cg";
-import { FaArrowRotateRight } from "react-icons/fa6";
+import {
+  FaArrowDownLong,
+  FaArrowRotateRight,
+  FaArrowUpLong,
+} from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import useSWR from "swr";
 
@@ -59,7 +63,10 @@ const columns = [
     id: "actions",
     header: () => <span className="text-base">Actions</span>,
     cell: (info) => (
-      <Link to={`/transactions/${info.getValue()}`} className="btn btn-primary">
+      <Link
+        to={`/transactions/${info.row.original.id}`}
+        className="btn btn-primary"
+      >
         details
       </Link>
     ),
@@ -198,7 +205,7 @@ function Transactions() {
                         <div
                           {...{
                             className: header.column.getCanSort()
-                              ? "cursor-pointer select-none"
+                              ? "cursor-pointer select-none flex gap-2 items-center"
                               : "",
                             onClick: header.column.getToggleSortingHandler(),
                           }}
@@ -208,9 +215,11 @@ function Transactions() {
                             header.getContext(),
                           )}
                           {{
-                            asc: " 🔼",
-                            desc: " 🔽",
-                          }[header.column.getIsSorted()] ?? null}
+                            asc: <FaArrowUpLong></FaArrowUpLong>,
+                            desc: <FaArrowDownLong></FaArrowDownLong>,
+                          }[header.column.getIsSorted()] ?? (
+                            <div className="w-3"></div>
+                          )}
                         </div>
                       </>
                     )}
