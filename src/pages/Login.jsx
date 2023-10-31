@@ -13,9 +13,7 @@ function Login() {
 
   const [reveal, setReveal] = useState(false);
   function handleReveal() {
-    setReveal(function (reveal) {
-      return !reveal;
-    });
+    setReveal((reveal) => !reveal);
   }
 
   const schema = yup.object({
@@ -38,7 +36,6 @@ function Login() {
 
   const dispatch = useDispatch();
   const onSubmit = (data) => {
-    console.log(data);
     dispatch(login({ email: data.email, password: data.password }));
 
     const from = location.state?.from || "/";

@@ -159,16 +159,9 @@ function Home() {
     sort: "",
   });
 
-  const [processedCategories, setProcessedCategories] = useState([
-    { id: 0, name: "Semua" },
-  ]);
-
-  useMemo(() => {
+  const processedCategories = useMemo(() => {
     if (categories) {
-      setProcessedCategories((prevCategories) => [
-        ...prevCategories,
-        ...categories,
-      ]);
+      return [{ id: 0, name: "Semua" }, ...categories];
     }
   }, [categories]);
 

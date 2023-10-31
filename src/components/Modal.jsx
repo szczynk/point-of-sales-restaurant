@@ -2,10 +2,12 @@ import { bool, func, string } from "prop-types";
 import { useEffect, useRef } from "react";
 import { FcApproval, FcHighPriority } from "react-icons/fc";
 
+// https://stackoverflow.com/questions/76955824/how-to-control-daisyui-modal-after-update-to-v3-in-reactjs
 function Modal(props) {
   const { isOpen, handleClose, title, text } = props;
   const modalRef = useRef(null);
 
+  // tunggu sampai komponen ada
   useEffect(() => {
     if (!modalRef.current) {
       return;

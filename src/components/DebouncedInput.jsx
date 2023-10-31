@@ -8,10 +8,17 @@ function DebouncedInput(props) {
 
   const handleOnChange = (event) => setValue(event.target.value);
 
+  // klo prop initialValue berubah, maka update initialValue ybaru
   useEffect(() => {
     setValue(initialValue);
   }, [initialValue]);
 
+  // jika kita ketik / ubah di input [dengan onChange={handleOnChange}].
+  // maka akan mentrigger useEffect ini, menunggu sekitar 500ms (waktu`debounce`)
+  // sebelum menjalankan fungsi `onChange`
+  //
+  // jika kita ketik / ubah di input lagi,maka fungsi `onChange` akan dibatalkan [dengan clearTimeout()]
+  // dan kembali menunggu
   useEffect(() => {
     const timeout = setTimeout(() => {
       onChange(value);
