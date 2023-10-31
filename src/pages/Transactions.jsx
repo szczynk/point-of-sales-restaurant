@@ -32,6 +32,7 @@ import { ORDERS } from "../api/routes";
 import DebouncedInput from "../components/DebouncedInput";
 import absoluteRange from "../utils/absoluteRange";
 import epochToDate from "../utils/epochToDate";
+import idrPriceFormat from "../utils/idrPriceFormat";
 
 // https://codesandbox.io/p/sandbox/github/tanstack/table/tree/main/examples/react/filters?embed=1&file=%2Fsrc%2Fmain.tsx%3A294%2C13-294%2C48
 const columnHelper = createColumnHelper();
@@ -57,7 +58,7 @@ const columns = [
   }),
   columnHelper.accessor("totalPrice", {
     header: () => <span className="text-base">Total Harga</span>,
-    cell: (info) => <span className="text-base">{info.getValue()}</span>,
+    cell: (info) => <span className="text-base">{idrPriceFormat(info.getValue())}</span>,
   }),
   columnHelper.accessor("id", {
     id: "actions",
@@ -218,8 +219,8 @@ function Transactions() {
                             asc: <FaArrowUpLong></FaArrowUpLong>,
                             desc: <FaArrowDownLong></FaArrowDownLong>,
                           }[header.column.getIsSorted()] ?? (
-                            <div className="w-3"></div>
-                          )}
+                              <div className="w-3"></div>
+                            )}
                         </div>
                       </>
                     )}

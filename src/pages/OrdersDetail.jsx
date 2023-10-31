@@ -95,6 +95,7 @@ function OrdersDetail() {
         <Card>
           <div className="row-auto items-center">
             <div className="md:col-span-6 md:ms-auto md:text-right lg:col-span-6 ">
+              {/* button ini berguna untuk memprint dengan windowsprint pada umumnya, button tidak akan masuk kedalam print*/}
               <Button
                 className="btn btn-primary mr-4 mt-4"
                 onClick={handlePrint}
@@ -103,74 +104,56 @@ function OrdersDetail() {
               </Button>
             </div>
           </div>
-          <h2 className="mb-4 text-center text-2xl font-bold">
-            <b>Detail Transaksi</b>
-            <span className=" block text-slate-500">
-              Order ID : {dataOrders?.id}
-            </span>
-          </h2>
-          <Card.Body ref={printRef}>
-            <div className="flex justify-center space-x-4 md:mb-4">
-              <div className="md:flex">
-                <Card bordered={false} className="mr-40">
-                  <article className="inline-flex items-center md:items-start">
-                    <div>
-                      <Card.Title className="mb-4 ">
-                        <AiTwotoneCalendar
-                          className="mr-2 inline"
-                          size={30}
-                        ></AiTwotoneCalendar>
-                        <b>Tanggal Transaksi</b>
-                      </Card.Title>
-                      <p className="mb-1">
-                        {dataOrders ? epochToDate(dataOrders.createdAt) : ""}
-                      </p>
-                    </div>
-                  </article>
-                </Card>
-                <Card bordered={false} className="mr-40">
-                  <article className="inline-flex items-center md:items-start">
-                    <div>
-                      <Card.Title className="mb-4 ">
-                        <AiOutlineUser
-                          className="w-5"
-                          size={20}
-                        ></AiOutlineUser>
-                        <b>Customer</b>
-                      </Card.Title>
-                      <p className="mb-1">
-                        {dataOrders?.user.name}
-                        <br />
-                        {dataOrders?.user.email}
-                        <br />
-                        {dataOrders?.user.phone}
-                      </p>
-                    </div>
-                  </article>
-                </Card>
+          {/* dawal dari print*/}
+          <div ref={printRef}>
+            <h2 className="mb-4 text-center text-2xl font-bold">
+              <b>Detail Transaksi</b>
+              <span className=" block text-slate-500">
+                Order ID : {dataOrders?.id}
+              </span>
+            </h2>
+            <Card.Body>
+              {/* awal dari grid */}
+              <div className="grid grid-cols-3 gap-4 mb-4">
+                <div className="text-center">
+                  <AiTwotoneCalendar
+                    className="mr-2 inline"
+                    size={30}
+                  ></AiTwotoneCalendar>
+                  <h1 className="text-xl pb-2 inline-block"><b>Tanggal Transaksi</b></h1>
+                  <p className="mb-1">
+                    {dataOrders ? epochToDate(dataOrders.createdAt) : ""}
+                  </p>
+                </div>
+                <div className="text-center">
+                  <AiOutlineUser
+                    className="inline mr-1"
+                    size={20}
+                  ></AiOutlineUser>
+                  <h1 className="text-xl pb-2 inline-block"><b>Customer</b></h1>
+                  <p className="mb-1">
+                    {dataOrders?.user.name}
+                    <br />
+                    {dataOrders?.user.email}
+                    <br />
+                    {dataOrders?.user.phone}
+                  </p>
+                </div>
+                <div className="text-center">
+                  <AiFillCreditCard
+                    className="inline mr-2"
+                    size={20}
+                  ></AiFillCreditCard>
+                  <h1 className="text-xl pb-2 inline-block"><b>Credit Info</b></h1>
+                  <p className="mb-1">
+                    Payment :{" "}
+                    {dataOrders ? dataOrders["payment-method"].name : ""}{" "}
+                    <br />
+                  </p>
+                </div>
               </div>
-              <div className="md:flex">
-                <Card bordered={false}>
-                  <article className="inline-flex items-center md:items-start">
-                    <div>
-                      <Card.Title className="mb-4">
-                        <AiFillCreditCard
-                          className="w-5"
-                          size={20}
-                        ></AiFillCreditCard>{" "}
-                        <b>Order Info</b>
-                      </Card.Title>
-                      <p className="mb-1">
-                        Payment :{" "}
-                        {dataOrders ? dataOrders["payment-method"].name : ""}{" "}
-                        <br />
-                      </p>
-                    </div>
-                  </article>
-                </Card>
-              </div>
-            </div>
-            <div className="">
+              {/* akhir dari grid */}
+              {/* membuat table dengan bantuan react table */}
               <table className="table">
                 <thead className="bg-slate-300">
                   {table.getHeaderGroups().map((headerGroup) => (
@@ -196,8 +179,8 @@ function OrdersDetail() {
                                   asc: <FaArrowUpLong></FaArrowUpLong>,
                                   desc: <FaArrowDownLong></FaArrowDownLong>,
                                 }[header.column.getIsSorted()] ?? (
-                                  <div className="w-3"></div>
-                                )}
+                                    <div className="w-3"></div>
+                                  )}
                               </div>
                             </>
                           )}
@@ -237,8 +220,10 @@ function OrdersDetail() {
                   </tr>
                 </tbody>
               </table>
-            </div>
-          </Card.Body>
+              {/* akhir dari table */}
+            </Card.Body>
+          </div>
+          {/* akhir dari print */}
         </Card>
       </section>
     </>
