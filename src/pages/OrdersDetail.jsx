@@ -5,8 +5,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useMemo, useRef } from "react";
-import { Card } from "react-daisyui";
-import { Button, Loading } from "react-daisyui";
+import { Button, Card, Loading } from "react-daisyui";
 import {
   AiFillCreditCard,
   AiOutlineCloudDownload,
@@ -31,7 +30,9 @@ const columns = [
   }),
   columnHelper.accessor("product.price", {
     header: () => <span className="text-base">Harga Per-Item</span>,
-    cell: (info) => <span className="text-base">{idrPriceFormat(info.getValue())}</span>,
+    cell: (info) => (
+      <span className="text-base">{idrPriceFormat(info.getValue())}</span>
+    ),
   }),
   columnHelper.accessor("amounts", {
     header: () => <span className="text-base">Quantity</span>,
@@ -39,7 +40,9 @@ const columns = [
   }),
   columnHelper.accessor("subTotal", {
     header: () => <span className="text-base">Sub Total</span>,
-    cell: (info) => <span className="text-base">{idrPriceFormat(info.getValue())}</span>,
+    cell: (info) => (
+      <span className="text-base">{idrPriceFormat(info.getValue())}</span>
+    ),
   }),
 ];
 
@@ -66,18 +69,22 @@ function OrdersDetail() {
     debugColumns: true,
   });
 
+  // membuat referensi menggunakan useRef() dengan nama printRef. Referensi ini akan digunakan untuk menunjuk ke elemen HTML dalam komponen
+  const printRef = useRef();
+  //  menggunakan useReactToPrint dari pustaka "react-to-print" untuk mencetak konten yang terkandung dalam elemen yang dirujuk oleh printRef
+
+  // ambil dom dari konten yang telah dipilih,
+  // buat html baru yang akan diprint
+  // masukin konten yang telah dipilih ke dalam html-nya,
+  // jalan kan window.print()
+  // hapus html-nya untuk print baru lagi
+  const handlePrint = useReactToPrint({
+    content: () => printRef.current,
+  });
 
   if (isLoading && isLoadingOrder) {
     return <Loading></Loading>;
   }
-
-  // membuat referensi menggunakan useRef() dengan nama printRef. Referensi ini akan digunakan untuk menunjuk ke elemen HTML dalam komponen
-  const printRef = useRef();
-  //  menggunakan useReactToPrint dari pustaka "react-to-print" untuk mencetak konten yang terkandung dalam elemen yang dirujuk oleh printRef
-  const handlePrint = useReactToPrint({
-    content: () => printRef.current
-  });
-
 
   return (
     <>
@@ -85,20 +92,22 @@ function OrdersDetail() {
         <Card>
           <div className="row-auto items-center">
             <div className="md:col-span-6 md:ms-auto md:text-right lg:col-span-6 ">
-              <Button className="btn btn-primary mr-4 mt-4" onClick={handlePrint}>
-                <AiOutlineCloudDownload size={40}>
-                </AiOutlineCloudDownload>
+              <Button
+                className="btn btn-primary mr-4 mt-4"
+                onClick={handlePrint}
+              >
+                <AiOutlineCloudDownload size={40}></AiOutlineCloudDownload>
               </Button>
             </div>
           </div>
           <h2 className="mb-4 text-center text-2xl font-bold">
             <b>Detail Transaksi</b>
-            <span className=" text-slate-500 block">
+            <span className=" block text-slate-500">
               Order ID : {dataOrders?.id}
             </span>
           </h2>
           <Card.Body ref={printRef}>
-            <div className="mb-20 mt-10 flex justify-center space-x-4 md:mb-4">
+            <div className="flex justify-center space-x-4 md:mb-4">
               <div className="md:flex">
                 <Card bordered={false} className="mr-40">
                   <article className="inline-flex items-center md:items-start">
@@ -158,7 +167,7 @@ function OrdersDetail() {
                 </Card>
               </div>
             </div>
-            <div className="overflow-x-auto">
+            <div className="">
               <table className="table">
                 <thead className="bg-slate-300">
                   {table.getHeaderGroups().map((headerGroup) => (
@@ -206,24 +215,20 @@ function OrdersDetail() {
                     </tr>
                   ))}
                   <tr>
-                    <td colSpan="3" className="text-lg">
-                      <article className="float-right mr-20">
-                        <dl className="mb-[5px]">
-                          <dt>
-                            <b>Total :</b>
-                          </dt>
-                        </dl>
-                        <dl className="mb-[5px]">
-                          <dt className="text-muted">
-                            Status :
-                          </dt>
-                        </dl>
-                      </article>
+                    <td colSpan="3" className="pb-0 text-lg">
+                      <b className="float-right">Total :</b>
                     </td>
-                    <div className="mt-[10px] text-lg"><b>{idrPriceFormat(dataOrders?.totalPrice)}</b></div>
-                    <div className="text-leg mt-[10px] mb-[5px]"><span className="rounded-pill badge alert-success text-success">
-                      Payment done
-                    </span></div>
+                    <td className="pb-0 text-lg">
+                      <b>{idrPriceFormat(dataOrders?.totalPrice)}</b>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan="3" className="text-muted pt-0 text-lg">
+                      <span className="float-right">Status :</span>
+                    </td>
+                    <td className="pt-0 text-lg">
+                      <span className="text-success">Payment done</span>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -234,6 +239,5 @@ function OrdersDetail() {
     </>
   );
 }
-
 
 export default OrdersDetail;

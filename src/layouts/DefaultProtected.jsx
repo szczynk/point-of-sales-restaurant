@@ -28,7 +28,7 @@ function DefaultProtected() {
 
         <main
           className={`mx-auto p-4 transition-all ${
-            slim ? "w-[calc(100vw_-_64px)]" : "w-[calc(100vw_-_160px)]"
+            slim ? "w-[calc(100vw_-_5rem)]" : "w-[calc(100vw_-_11rem)]"
           }`}
         >
           <Outlet />
