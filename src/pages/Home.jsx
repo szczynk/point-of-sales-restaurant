@@ -251,7 +251,7 @@ function Home() {
               <div className="flex-warp flex items-center justify-between gap-2 pb-4 text-center">
                 <h2 className="text-2xl font-bold">Daftar Produk</h2>
                 {/* // ! at screen width 896px or 916px, the text height get doubled and ruined perfect height*/}
-                <div className="flex flex-wrap justify-between gap-2">
+                <div className="flex flex-wrap items-center justify-between gap-2">
                   <select
                     name="sort"
                     className="select focus:outline-offset-0"

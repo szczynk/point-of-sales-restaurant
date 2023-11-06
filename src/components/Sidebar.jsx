@@ -1,5 +1,10 @@
 import { bool, func } from "prop-types";
-import { FaChartBar, FaMoneyBill, FaRightFromBracket } from "react-icons/fa6";
+import {
+  FaCartShopping,
+  FaChartBar,
+  FaMoneyBill,
+  FaRightFromBracket,
+} from "react-icons/fa6";
 import { Link, useLocation } from "react-router-dom";
 
 function Sidebar(props) {
@@ -54,6 +59,23 @@ function Sidebar(props) {
                   }`}
                 >
                   POS
+                </span>
+              </Link>
+              <Link
+                to={"/products"}
+                className={`mt-2 flex h-12 w-full items-center rounded px-3 ${
+                  pathname === "/products" ? "bg-gray-300" : "hover:bg-gray-300"
+                }`}
+              >
+                <div className="h-6 w-6">
+                  <FaCartShopping className="h-6 w-6"></FaCartShopping>
+                </div>
+                <span
+                  className={`ml-2 text-sm font-medium ${
+                    slim ? "hidden" : "inline"
+                  }`}
+                >
+                  Products
                 </span>
               </Link>
               <Link

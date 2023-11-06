@@ -58,7 +58,9 @@ const columns = [
   }),
   columnHelper.accessor("totalPrice", {
     header: () => <span className="text-base">Total Harga</span>,
-    cell: (info) => <span className="text-base">{idrPriceFormat(info.getValue())}</span>,
+    cell: (info) => (
+      <span className="text-base">{idrPriceFormat(info.getValue())}</span>
+    ),
   }),
   columnHelper.accessor("id", {
     id: "actions",
@@ -83,7 +85,7 @@ function Transactions() {
 
   const [{ pageIndex, pageSize }, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: 5,
   });
 
   const defaultData = useMemo(() => [], []);
@@ -179,7 +181,7 @@ function Transactions() {
       <div className="p-4">
         <h1 className="text-2xl font-bold">Riwayat Transaksi</h1>
       </div>
-      <div className="flex items-center justify-between gap-2 p-4">
+      <div className="flex-warp flex items-center justify-between gap-2 pb-4 text-center">
         <DebouncedInput
           type="text"
           className="input w-48 focus:outline-offset-0"
@@ -188,12 +190,13 @@ function Transactions() {
           spellCheck="false"
           placeholder="Cari Transaksi"
         ></DebouncedInput>
-        <div className="justify-betwwen items-center gap-2">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <button type="button" className="btn" onClick={handleResetFilter}>
             <FaArrowRotateRight className="h-5 w-5 fill-primary"></FaArrowRotateRight>
           </button>
         </div>
       </div>
+
       <div className="overflow-x-auto">
         <table className="table">
           <thead>
@@ -219,8 +222,8 @@ function Transactions() {
                             asc: <FaArrowUpLong></FaArrowUpLong>,
                             desc: <FaArrowDownLong></FaArrowDownLong>,
                           }[header.column.getIsSorted()] ?? (
-                              <div className="w-3"></div>
-                            )}
+                            <div className="w-3"></div>
+                          )}
                         </div>
                       </>
                     )}
@@ -249,7 +252,7 @@ function Transactions() {
             value={table.getState().pagination.pageSize}
             onChange={handleLimit}
           >
-            {[10, 25, 50, 100].map((pageSize) => (
+            {[5, 10, 25, 50, 100].map((pageSize) => (
               <Select.Option key={pageSize} value={pageSize}>
                 {pageSize}
               </Select.Option>

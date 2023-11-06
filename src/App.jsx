@@ -12,6 +12,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import OrdersDetail from "./pages/OrdersDetail";
 import Payment from "./pages/Payment";
+import Products from "./pages/Products";
 import Transactions from "./pages/Transactions";
 import store from "./redux/store";
 
@@ -27,6 +28,8 @@ const router = createBrowserRouter(
           <Route path="payment" element={<Payment />} />
           <Route path="transactions" element={<Transactions />} />
           <Route path="transactions/:id" element={<OrdersDetail />} />
+
+          <Route path="products" element={<Products />} />
         </Route>
       </Route>
     </Route>,
