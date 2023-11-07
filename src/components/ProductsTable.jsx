@@ -11,8 +11,9 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useMemo, useState } from "react";
-import { Button, Input, Loading, Pagination, Select } from "react-daisyui";
+import { array, func, number } from "prop-types";
+import { useCallback, useMemo, useState } from "react";
+import { Button, Input, Pagination, Select } from "react-daisyui";
 import {
   CgChevronLeft,
   CgChevronRight,
@@ -24,69 +25,89 @@ import {
   FaArrowRotateRight,
   FaArrowUpLong,
 } from "react-icons/fa6";
-import { Link } from "react-router-dom";
-import useSWR from "swr";
 
-import { getAllItems } from "../api/api";
-import { ORDERS } from "../api/routes";
-import DebouncedInput from "../components/DebouncedInput";
+import { deleteItem } from "../api/api";
+import { PRODUCTS } from "../api/routes";
 import absoluteRange from "../utils/absoluteRange";
 import epochToDate from "../utils/epochToDate";
 import idrPriceFormat from "../utils/idrPriceFormat";
+import DebouncedInput from "./DebouncedInput";
+import ModalProductDelete from "./ModalProductDelete";
 
-// https://codesandbox.io/p/sandbox/github/tanstack/table/tree/main/examples/react/filters?embed=1&file=%2Fsrc%2Fmain.tsx%3A294%2C13-294%2C48
-const columnHelper = createColumnHelper();
+function ProductsTable(props) {
+  const {
+    data,
+    pageIndex,
+    pageSize,
+    setPagination,
+    setCurrentView,
+    mutate,
+    setEditProduct,
+  } = props;
+  const [itemToDelete, setItemToDelete] = useState(null);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
 
-const columns = [
-  columnHelper.accessor("createdAt", {
-    header: () => <span className="text-base">Tanggal Transaksi</span>,
-    cell: (info) => (
-      <span className="text-base">{epochToDate(info.getValue())}</span>
-    ),
-  }),
-  columnHelper.accessor("id", {
-    header: () => <span className="text-base">ID Transaksi</span>,
-    cell: (info) => <span className="text-base">{info.getValue()}</span>,
-  }),
-  columnHelper.accessor("user.name", {
-    header: () => <span className="text-base">Customer</span>,
-    cell: (info) => <span className="text-base">{info.getValue()}</span>,
-  }),
-  columnHelper.accessor("payment-method.name", {
-    header: () => <span className="text-base">Jenis Pembayaran</span>,
-    cell: (info) => <span className="text-base">{info.getValue()}</span>,
-  }),
-  columnHelper.accessor("totalPrice", {
-    header: () => <span className="text-base">Total Harga</span>,
-    cell: (info) => (
-      <span className="text-base">{idrPriceFormat(info.getValue())}</span>
-    ),
-  }),
-  columnHelper.accessor("id", {
-    id: "actions",
-    header: () => <span className="text-base">Actions</span>,
-    cell: (info) => (
-      <Link
-        to={`/transactions/${info.row.original.id}`}
-        className="btn btn-primary"
-      >
-        details
-      </Link>
-    ),
-    enableSorting: false,
-  }),
-];
+  // https://codesandbox.io/p/sandbox/github/tanstack/table/tree/main/examples/react/filters?embed=1&file=%2Fsrc%2Fmain.tsx%3A294%2C13-294%2C48
+  const columnHelper = createColumnHelper();
 
-function Transactions() {
-  const { isLoading, data } = useSWR(
-    `${ORDERS}?_expand=payment-method&_expand=user`,
-    getAllItems,
-  );
-
-  const [{ pageIndex, pageSize }, setPagination] = useState({
-    pageIndex: 0,
-    pageSize: 5,
-  });
+  const columns = [
+    columnHelper.accessor("id", {
+      header: () => <span className="text-base">ID</span>,
+      cell: (info) => <span className="text-base">{info.getValue()}</span>,
+    }),
+    columnHelper.accessor("name", {
+      header: () => <span className="text-base">Nama Produk</span>,
+      cell: (info) => (
+        <div className="flex items-center gap-2">
+          <img
+            src={info.row.original.image}
+            alt={info.getValue()}
+            className="h-[3.25rem] w-[3.25rem] rounded-lg"
+          />
+          <span className="text-base">{info.getValue()}</span>
+        </div>
+      ),
+    }),
+    columnHelper.accessor("category.name", {
+      header: () => <span className="text-base">Kategori</span>,
+      cell: (info) => <span className="text-base">{info.getValue()}</span>,
+    }),
+    columnHelper.accessor("price", {
+      header: () => <span className="text-base">Harga</span>,
+      cell: (info) => (
+        <span className="text-base">{idrPriceFormat(info.getValue())}</span>
+      ),
+    }),
+    columnHelper.accessor("createdAt", {
+      header: () => <span className="text-base">Tanggal Dibuat</span>,
+      cell: (info) => (
+        <span className="text-base">{epochToDate(info.getValue())}</span>
+      ),
+    }),
+    columnHelper.accessor("id", {
+      id: "actions",
+      header: () => <span className="text-base">Actions</span>,
+      cell: (info) => (
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            className="btn btn-warning"
+            onClick={handleEdit(info.row.original)}
+          >
+            edit
+          </button>
+          <button
+            type="button"
+            className="btn btn-error"
+            onClick={() => openDeleteModal(info.row.original)}
+          >
+            delete
+          </button>
+        </div>
+      ),
+      enableSorting: false,
+    }),
+  ];
 
   const pageSizeOptions = [4, 10, 25, 50, 100];
 
@@ -174,15 +195,47 @@ function Transactions() {
     setColumnFilters([]);
   };
 
-  if (isLoading) {
-    return <Loading></Loading>;
+  const handleToAddProduct = () => {
+    setCurrentView(2);
+  };
+
+  const handleEdit = useCallback(
+    (product) => {
+      return () => {
+        setEditProduct(product);
+        setCurrentView(3);
+      };
+    },
+    [setCurrentView, setEditProduct],
+  );
+
+  const openDeleteModal = (item) => {
+    setItemToDelete(item);
+    setDeleteModalOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setItemToDelete(null);
+    setDeleteModalOpen(false);
+  };
+
+  async function handleDelete() {
+    try {
+      // Hapus produk menggunakan API
+      await deleteItem(`${PRODUCTS}/${itemToDelete.id}`);
+    } catch (error) {
+      console.error("Error deleting product: ", error);
+      // Tampilkan pesan kesalahan jika diperlukan
+    } finally {
+      // Perbarui data dengan memanggil mutate
+      mutate();
+      // Tutup modal setelah penghapusan berhasil
+      closeDeleteModal();
+    }
   }
 
   return (
     <>
-      <div className="p-4">
-        <h1 className="text-2xl font-bold">Riwayat Transaksi</h1>
-      </div>
       <div className="flex-warp flex items-center justify-between gap-2 pb-4 text-center">
         <DebouncedInput
           type="text"
@@ -195,6 +248,13 @@ function Transactions() {
         <div className="flex flex-wrap items-center justify-between gap-2">
           <button type="button" className="btn" onClick={handleResetFilter}>
             <FaArrowRotateRight className="h-5 w-5 fill-primary"></FaArrowRotateRight>
+          </button>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={handleToAddProduct}
+          >
+            Tambah Produk
           </button>
         </div>
       </div>
@@ -274,7 +334,7 @@ function Transactions() {
               type="number"
               value={pageIndex + 1}
               onChange={handleGoToPage}
-              className="w-16"
+              className="w-20"
             />
           </div>
         </div>
@@ -310,8 +370,29 @@ function Transactions() {
           </Button>
         </Pagination>
       </div>
+      <ModalProductDelete
+        isOpen={isDeleteModalOpen}
+        handleClose={closeDeleteModal}
+        title="Konfirmasi Hapus"
+        text={
+          itemToDelete
+            ? `Anda yakin ingin menghapus produk ${itemToDelete.name}?`
+            : ""
+        }
+        handleConfirmDelete={handleDelete}
+      />
     </>
   );
 }
 
-export default Transactions;
+ProductsTable.propTypes = {
+  data: array,
+  pageIndex: number,
+  pageSize: number,
+  setPagination: func,
+  setCurrentView: func,
+  mutate: func,
+  setEditProduct: func,
+};
+
+export default ProductsTable;

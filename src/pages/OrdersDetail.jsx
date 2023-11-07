@@ -19,7 +19,7 @@ import { useReactToPrint } from "react-to-print";
 import useSWR from "swr";
 
 import { getAllItems, getItemById } from "../api/api";
-import { ORDERS } from "../api/routes";
+import { ORDER_ITEMS, ORDERS } from "../api/routes";
 import epochToDate from "../utils/epochToDate";
 import idrPriceFormat from "../utils/idrPriceFormat";
 
@@ -52,7 +52,7 @@ function OrdersDetail() {
   const { id } = useParams();
 
   const { isLoading, data } = useSWR(
-    `${ORDERS}/${id}/order-items?_expand=order&_expand=product`,
+    `${ORDERS}/${id}${ORDER_ITEMS}?_expand=order&_expand=product`,
     getAllItems,
   );
   const { isLoadingOrder, data: dataOrders } = useSWR(
@@ -106,31 +106,40 @@ function OrdersDetail() {
           </div>
           {/* dawal dari print*/}
           <div ref={printRef}>
-            <h2 className="mb-4 text-center text-2xl font-bold">
+            <h2 className="pt-8 text-center text-2xl font-bold">
               <b>Detail Transaksi</b>
-              <span className=" block text-slate-500">
+              <span className="block text-slate-500">
                 Order ID : {dataOrders?.id}
               </span>
             </h2>
             <Card.Body>
               {/* awal dari grid */}
-              <div className="grid grid-cols-3 gap-4 mb-4">
-                <div className="text-center">
-                  <AiTwotoneCalendar
-                    className="mr-2 inline"
-                    size={30}
-                  ></AiTwotoneCalendar>
-                  <h1 className="text-xl pb-2 inline-block"><b>Tanggal Transaksi</b></h1>
+              <div className="mb-4 grid grid-cols-3 gap-4">
+                <div className="">
+                  <div className="flex items-center gap-2 pb-2">
+                    <div className="w-7">
+                      <AiTwotoneCalendar
+                        className=""
+                        size={28}
+                      ></AiTwotoneCalendar>
+                    </div>
+                    <h1 className="text-xl">
+                      <b>Tanggal Transaksi</b>
+                    </h1>
+                  </div>
                   <p className="mb-1">
                     {dataOrders ? epochToDate(dataOrders.createdAt) : ""}
                   </p>
                 </div>
-                <div className="text-center">
-                  <AiOutlineUser
-                    className="inline mr-1"
-                    size={20}
-                  ></AiOutlineUser>
-                  <h1 className="text-xl pb-2 inline-block"><b>Customer</b></h1>
+                <div className="">
+                  <div className="flex items-center gap-2 pb-2">
+                    <div className="w-7">
+                      <AiOutlineUser className="" size={28}></AiOutlineUser>
+                    </div>
+                    <h1 className="text-xl">
+                      <b>Customer</b>
+                    </h1>
+                  </div>
                   <p className="mb-1">
                     {dataOrders?.user.name}
                     <br />
@@ -139,16 +148,21 @@ function OrdersDetail() {
                     {dataOrders?.user.phone}
                   </p>
                 </div>
-                <div className="text-center">
-                  <AiFillCreditCard
-                    className="inline mr-2"
-                    size={20}
-                  ></AiFillCreditCard>
-                  <h1 className="text-xl pb-2 inline-block"><b>Credit Info</b></h1>
+                <div className="">
+                  <div className="flex items-center gap-2 pb-2">
+                    <div className="w-7">
+                      <AiFillCreditCard
+                        className=""
+                        size={28}
+                      ></AiFillCreditCard>
+                    </div>
+                    <h1 className="text-xl">
+                      <b>Credit Info</b>
+                    </h1>
+                  </div>
                   <p className="mb-1">
                     Payment :{" "}
-                    {dataOrders ? dataOrders["payment-method"].name : ""}{" "}
-                    <br />
+                    {dataOrders ? dataOrders["payment-method"].name : ""} <br />
                   </p>
                 </div>
               </div>
@@ -179,8 +193,8 @@ function OrdersDetail() {
                                   asc: <FaArrowUpLong></FaArrowUpLong>,
                                   desc: <FaArrowDownLong></FaArrowDownLong>,
                                 }[header.column.getIsSorted()] ?? (
-                                    <div className="w-3"></div>
-                                  )}
+                                  <div className="w-3"></div>
+                                )}
                               </div>
                             </>
                           )}
@@ -215,7 +229,7 @@ function OrdersDetail() {
                       <span className="float-right">Status :</span>
                     </td>
                     <td className="pt-0 text-lg">
-                      <span className="text-success">Payment done</span>
+                      <span className="text-success">Payment Done</span>
                     </td>
                   </tr>
                 </tbody>
