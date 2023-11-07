@@ -28,10 +28,10 @@ import {
   FaArrowRotateRight,
   FaArrowUpLong,
 } from "react-icons/fa6";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import * as yup from "yup";
 
-import { createItem, getAllItems, updateItem } from "../api/api";
+import { createItem, getAllItems, updateItem, deleteItem } from "../api/api";
 import { CATEGORIES, PRODUCTS } from "../api/routes";
 import DebouncedInput from "../components/DebouncedInput";
 import absoluteRange from "../utils/absoluteRange";
@@ -90,7 +90,10 @@ function ProductsTable(props) {
           >
             edit
           </button>
-          <button type="button" className="btn btn-error">
+          <button
+            type="button"
+            className="btn btn-error"
+            onClick={() => handleDelete(info.row.original.id)}>
             delete
           </button>
         </div>
@@ -202,6 +205,17 @@ function ProductsTable(props) {
     [setCurrentView, setEditProduct],
   );
 
+  const handleDelete = async (productId) => {
+    try {
+      // Hapus produk menggunakan API
+      await deleteItem(`${PRODUCTS}/${productId}`);
+      // Perbarui data dengan memanggil mutate
+      mutate(`${PRODUCTS}?_expand=category`);
+    } catch (error) {
+      console.error("Error deleting product: ", error);
+    }
+  };
+
   return (
     <>
       <div className="flex-warp flex items-center justify-between gap-2 pb-4 text-center">
@@ -252,8 +266,8 @@ function ProductsTable(props) {
                             asc: <FaArrowUpLong></FaArrowUpLong>,
                             desc: <FaArrowDownLong></FaArrowDownLong>,
                           }[header.column.getIsSorted()] ?? (
-                            <div className="w-3"></div>
-                          )}
+                              <div className="w-3"></div>
+                            )}
                         </div>
                       </>
                     )}
