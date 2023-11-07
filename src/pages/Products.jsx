@@ -33,6 +33,7 @@ import * as yup from "yup";
 
 import { createItem, getAllItems, updateItem, deleteItem } from "../api/api";
 import { CATEGORIES, PRODUCTS } from "../api/routes";
+import ModalProductDelete from "../components/ModalProductDelete";
 import DebouncedInput from "../components/DebouncedInput";
 import absoluteRange from "../utils/absoluteRange";
 import epochToDate from "../utils/epochToDate";
@@ -40,6 +41,8 @@ import idrPriceFormat from "../utils/idrPriceFormat";
 
 function ProductsTable(props) {
   const { data, setCurrentView, setEditProduct } = props;
+  const [itemToDelete, setItemToDelete] = useState(null);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
 
   // https://codesandbox.io/p/sandbox/github/tanstack/table/tree/main/examples/react/filters?embed=1&file=%2Fsrc%2Fmain.tsx%3A294%2C13-294%2C48
   const columnHelper = createColumnHelper();
@@ -93,7 +96,7 @@ function ProductsTable(props) {
           <button
             type="button"
             className="btn btn-error"
-            onClick={() => handleDelete(info.row.original.id)}>
+            onClick={() => openDeleteModal(info.row.original)}>
             delete
           </button>
         </div>
@@ -205,16 +208,36 @@ function ProductsTable(props) {
     [setCurrentView, setEditProduct],
   );
 
-  const handleDelete = async (productId) => {
+  const openDeleteModal = (item) => {
+    setItemToDelete(item);
+    setDeleteModalOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setItemToDelete(null);
+    setDeleteModalOpen(false);
+  };
+
+  function handleDelete() {
     try {
       // Hapus produk menggunakan API
-      await deleteItem(`${PRODUCTS}/${productId}`);
-      // Perbarui data dengan memanggil mutate
-      mutate(`${PRODUCTS}?_expand=category`);
+      deleteItem(`${PRODUCTS}/${itemToDelete.id}`)
+        .then(() => {
+          // Perbarui data dengan memanggil mutate
+          mutate(`${PRODUCTS}?_expand=category`);
+          // Tutup modal setelah penghapusan berhasil
+          closeDeleteModal();
+        })
+        .catch((error) => {
+          console.error("Error deleting product: ", error);
+          // Tampilkan pesan kesalahan jika diperlukan
+        });
     } catch (error) {
       console.error("Error deleting product: ", error);
+      // Tampilkan pesan kesalahan jika diperlukan
     }
-  };
+  }
+
 
   return (
     <>
@@ -351,6 +374,15 @@ function ProductsTable(props) {
             <CgPushChevronRight className="h-5 w-5"></CgPushChevronRight>
           </Button>
         </Pagination>
+        {isDeleteModalOpen && (
+          <ModalProductDelete
+            isOpen={isDeleteModalOpen}
+            handleClose={closeDeleteModal}
+            title="Konfirmasi Hapus"
+            text={`Anda yakin ingin menghapus produk "${itemToDelete.name}?"`}
+            handleConfirmDelete={handleDelete}
+          />
+        )}
       </div>
     </>
   );
