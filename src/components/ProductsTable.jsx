@@ -288,8 +288,8 @@ function ProductsTable(props) {
                             asc: <FaArrowUpLong></FaArrowUpLong>,
                             desc: <FaArrowDownLong></FaArrowDownLong>,
                           }[header.column.getIsSorted()] ?? (
-                            <div className="w-3"></div>
-                          )}
+                              <div className="w-3"></div>
+                            )}
                         </div>
                       </>
                     )}

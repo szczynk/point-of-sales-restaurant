@@ -89,7 +89,7 @@ function Transactions() {
 
   const [{ pageIndex, pageSize }, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 5,
+    pageSize: 4,
   });
 
   const pageSizeOptions = [4, 10, 25, 50, 100];
@@ -228,8 +228,8 @@ function Transactions() {
                             asc: <FaArrowUpLong></FaArrowUpLong>,
                             desc: <FaArrowDownLong></FaArrowDownLong>,
                           }[header.column.getIsSorted()] ?? (
-                            <div className="w-3"></div>
-                          )}
+                              <div className="w-3"></div>
+                            )}
                         </div>
                       </>
                     )}
