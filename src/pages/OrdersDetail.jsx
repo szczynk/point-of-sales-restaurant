@@ -172,72 +172,74 @@ function OrdersDetail() {
               </div>
               {/* akhir dari grid */}
               {/* membuat table dengan bantuan react table */}
-              <table className="table">
-                <thead className="bg-slate-300">
-                  {table.getHeaderGroups().map((headerGroup) => (
-                    <tr key={headerGroup.id}>
-                      {headerGroup.headers.map((header) => (
-                        <th key={header.id}>
-                          {header.isPlaceholder ? null : (
-                            <>
-                              <div
-                                {...{
-                                  className: header.column.getCanSort()
-                                    ? "cursor-pointer select-none flex gap-2 items-center"
-                                    : "",
-                                  onClick:
-                                    header.column.getToggleSortingHandler(),
-                                }}
-                              >
-                                {flexRender(
-                                  header.column.columnDef.header,
-                                  header.getContext(),
-                                )}
-                                {{
-                                  asc: <FaArrowUpLong></FaArrowUpLong>,
-                                  desc: <FaArrowDownLong></FaArrowDownLong>,
-                                }[header.column.getIsSorted()] ?? (
-                                  <div className="w-3"></div>
-                                )}
-                              </div>
-                            </>
-                          )}
-                        </th>
-                      ))}
+              <div className="overflow-x-auto">
+                <table className="table">
+                  <thead className="bg-slate-300">
+                    {table.getHeaderGroups().map((headerGroup) => (
+                      <tr key={headerGroup.id}>
+                        {headerGroup.headers.map((header) => (
+                          <th key={header.id}>
+                            {header.isPlaceholder ? null : (
+                              <>
+                                <div
+                                  {...{
+                                    className: header.column.getCanSort()
+                                      ? "cursor-pointer select-none flex gap-2 items-center"
+                                      : "",
+                                    onClick:
+                                      header.column.getToggleSortingHandler(),
+                                  }}
+                                >
+                                  {flexRender(
+                                    header.column.columnDef.header,
+                                    header.getContext(),
+                                  )}
+                                  {{
+                                    asc: <FaArrowUpLong></FaArrowUpLong>,
+                                    desc: <FaArrowDownLong></FaArrowDownLong>,
+                                  }[header.column.getIsSorted()] ?? (
+                                      <div className="w-3"></div>
+                                    )}
+                                </div>
+                              </>
+                            )}
+                          </th>
+                        ))}
+                      </tr>
+                    ))}
+                  </thead>
+                  <tbody className="">
+                    {table.getRowModel().rows.map((row) => (
+                      <tr key={row.id}>
+                        {row.getVisibleCells().map((cell) => (
+                          <td key={cell.id}>
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext(),
+                            )}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                    <tr>
+                      <td colSpan="3" className="pb-0 text-lg">
+                        <b className="float-right">Total :</b>
+                      </td>
+                      <td className="pb-0 text-lg">
+                        <b>{idrPriceFormat(dataOrders?.totalPrice)}</b>
+                      </td>
                     </tr>
-                  ))}
-                </thead>
-                <tbody className="">
-                  {table.getRowModel().rows.map((row) => (
-                    <tr key={row.id}>
-                      {row.getVisibleCells().map((cell) => (
-                        <td key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext(),
-                          )}
-                        </td>
-                      ))}
+                    <tr>
+                      <td colSpan="3" className="text-muted pt-0 text-lg">
+                        <span className="float-right">Status :</span>
+                      </td>
+                      <td className="pt-0 text-lg">
+                        <span className="text-success">Payment Done</span>
+                      </td>
                     </tr>
-                  ))}
-                  <tr>
-                    <td colSpan="3" className="pb-0 text-lg">
-                      <b className="float-right">Total :</b>
-                    </td>
-                    <td className="pb-0 text-lg">
-                      <b>{idrPriceFormat(dataOrders?.totalPrice)}</b>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colSpan="3" className="text-muted pt-0 text-lg">
-                      <span className="float-right">Status :</span>
-                    </td>
-                    <td className="pt-0 text-lg">
-                      <span className="text-success">Payment Done</span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
+              </div>
               {/* akhir dari table */}
             </Card.Body>
           </div>
