@@ -1,5 +1,5 @@
 import { object } from "prop-types";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Input } from "react-daisyui";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -51,6 +51,10 @@ OrderItem.propTypes = {
 };
 
 function Payment() {
+  useEffect(() => {
+    document.title = `Pembayaran - Bangsa`;
+  }, []);
+
   const { data: paymentMethods } = useSWR(`${PAYMENT_METHODS}`, getAllItems);
 
   const { items, totalAmounts, subTotalProductPrice } = useSelector(
@@ -72,7 +76,7 @@ function Payment() {
 
   const values = watch();
 
-  const kembalian = () => {
+  const kembalian = useCallback(() => {
     const jmlhKembalian = Number(values.dibayar) - subTotalProductPrice;
 
     if (jmlhKembalian < 0 || isNaN(jmlhKembalian)) {
@@ -80,7 +84,7 @@ function Payment() {
     }
 
     return jmlhKembalian;
-  };
+  }, [subTotalProductPrice, values.dibayar]);
 
   useEffect(() => {
     reset((values) => ({
@@ -261,7 +265,9 @@ function Payment() {
               <button
                 type="submit"
                 className="btn btn-primary btn-block mt-auto"
-                disabled={kembalian() < 0}
+                disabled={
+                  isNaN(values.dibayar) || values.dibayar < values.totalPrice
+                }
               >
                 {isLoading ? (
                   <span className="loading loading-spinner"></span>

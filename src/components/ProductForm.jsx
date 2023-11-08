@@ -1,18 +1,24 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
-import { func, object } from "prop-types";
+import { array, func, object } from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import useSWR from "swr";
 import * as yup from "yup";
 
-import { createItem, getAllItems, updateItem } from "../api/api";
-import { CATEGORIES, PRODUCTS } from "../api/routes";
+import { createItem, updateItem } from "../api/api";
+import { PRODUCTS } from "../api/routes";
 
 function ProductForm(props) {
-  const { setCurrentView, mutate, editProduct, setEditProduct } = props;
+  const { categories, setCurrentView, mutate, editProduct, setEditProduct } =
+    props;
 
-  const { data: categories } = useSWR(CATEGORIES, getAllItems);
+  useEffect(() => {
+    if (editProduct) {
+      document.title = `Ubah Produk - Bangsa`;
+    } else {
+      document.title = `Tambah Produk - Bangsa`;
+    }
+  }, [editProduct]);
 
   const schema = yup.object({
     name: yup.string().required("Required"),
@@ -253,6 +259,7 @@ function ProductForm(props) {
 }
 
 ProductForm.propTypes = {
+  categories: array,
   setCurrentView: func,
   mutate: func,
   editProduct: object,

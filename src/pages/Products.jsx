@@ -3,7 +3,7 @@ import { Loading } from "react-daisyui";
 import useSWR from "swr";
 
 import { getAllItems } from "../api/api";
-import { PRODUCTS } from "../api/routes";
+import { CATEGORIES, PRODUCTS } from "../api/routes";
 import ProductForm from "../components/ProductForm";
 import ProductsTable from "../components/ProductsTable";
 
@@ -12,6 +12,8 @@ function Products() {
     `${PRODUCTS}?_expand=category`,
     getAllItems,
   );
+
+  const { data: categories } = useSWR(CATEGORIES, getAllItems);
 
   const [{ pageIndex, pageSize }, setPagination] = useState({
     pageIndex: 0,
@@ -42,12 +44,14 @@ function Products() {
     ),
     2: (
       <ProductForm
+        categories={categories}
         setCurrentView={setCurrentView}
         mutate={mutate}
       ></ProductForm>
     ),
     3: (
       <ProductForm
+        categories={categories}
         setCurrentView={setCurrentView}
         mutate={mutate}
         editProduct={editProduct}

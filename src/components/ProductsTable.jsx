@@ -12,7 +12,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { array, func, number } from "prop-types";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Button, Input, Pagination, Select } from "react-daisyui";
 import {
   CgChevronLeft,
@@ -35,6 +35,10 @@ import DebouncedInput from "./DebouncedInput";
 import ModalProductDelete from "./ModalProductDelete";
 
 function ProductsTable(props) {
+  useEffect(() => {
+    document.title = `Daftar Produk - Bangsa`;
+  }, []);
+
   const {
     data,
     pageIndex,

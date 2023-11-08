@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -8,6 +8,10 @@ import * as yup from "yup";
 import { login } from "../redux/reducers/authSlice";
 
 function Login() {
+  useEffect(() => {
+    document.title = `Admin Login - Bangsa`;
+  }, []);
+
   const navigate = useNavigate();
   const location = useLocation();
 

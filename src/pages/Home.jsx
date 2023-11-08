@@ -1,5 +1,5 @@
 import { object } from "prop-types";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Select } from "react-daisyui";
 import { FaArrowRotateRight, FaMinus, FaPlus, FaTrash } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
@@ -138,6 +138,10 @@ CartItem.propTypes = {
 };
 
 function Home() {
+  useEffect(() => {
+    document.title = `Point of Sale - Bangsa`;
+  }, []);
+
   const { data: products } = useSWR(PRODUCTS, getAllItems);
 
   const { data: categories } = useSWR(

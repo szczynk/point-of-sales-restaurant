@@ -11,7 +11,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button, Input, Loading, Pagination, Select } from "react-daisyui";
 import {
   CgChevronLeft,
@@ -78,6 +78,10 @@ const columns = [
 ];
 
 function Transactions() {
+  useEffect(() => {
+    document.title = `Daftar Transaksi - Bangsa`;
+  }, []);
+
   const { isLoading, data } = useSWR(
     `${ORDERS}?_expand=payment-method&_expand=user`,
     getAllItems,

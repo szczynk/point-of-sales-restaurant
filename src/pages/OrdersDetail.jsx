@@ -5,7 +5,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { Button, Card, Loading } from "react-daisyui";
 import {
   AiFillCreditCard,
@@ -50,6 +50,10 @@ const columns = [
 
 function OrdersDetail() {
   const { id } = useParams();
+
+  useEffect(() => {
+    document.title = `Detail Transaksi ID: ${id} - Bangsa`;
+  }, [id]);
 
   const { isLoading, data } = useSWR(
     `${ORDERS}/${id}${ORDER_ITEMS}?_expand=order&_expand=product`,
