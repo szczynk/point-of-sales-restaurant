@@ -5,12 +5,20 @@ import {
   FaMoneyBill,
   FaRightFromBracket,
 } from "react-icons/fa6";
+import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+
+import { logout } from "../redux/reducers/authSlice";
 
 function Sidebar(props) {
   const { slim, toggleSidebar } = props;
 
   const { pathname } = useLocation();
+
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <>
@@ -102,6 +110,7 @@ function Sidebar(props) {
               <button
                 type="button"
                 className="mt-2 flex h-12 w-full items-center rounded px-3 hover:bg-gray-300"
+                onClick={handleLogout}
               >
                 <div className="h-6 w-6">
                   <FaRightFromBracket className="h-6 w-6"></FaRightFromBracket>

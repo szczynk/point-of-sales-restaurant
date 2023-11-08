@@ -28,8 +28,8 @@ function Login() {
 
   const form = useForm({
     defaultValues: {
-      email: "",
-      password: "",
+      email: "admin-test@test.com",
+      password: "12345678",
       rememberMe: false,
     },
     resolver: yupResolver(schema),
@@ -59,7 +59,7 @@ function Login() {
             </Link>
 
             <div className="flex items-center justify-between pt-4">
-              <h1 className="text-xl font-bold uppercase">Login</h1>
+              <h1 className="text-xl font-bold uppercase">Admin Login</h1>
             </div>
 
             <form

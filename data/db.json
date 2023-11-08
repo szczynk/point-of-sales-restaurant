@@ -1,6 +1,15 @@
 {
   "users": [
     {
+      "email": "admin-test@test.com",
+      "password": "$2a$10$YuF7EmoIGvHbKRs.vNylKewAzMLYvYH4mkhJ2Gnb2ChLua3wUrQJO",
+      "name": "admin-test",
+      "phone": "089012345678",
+      "role": "admin",
+      "createdAt": 1698226570,
+      "id": 1
+    },
+    {
       "email": "walk-in-customer@test.com",
       "password": "$2a$10$ym4ohL8jxUkfTxTNcn8jzeFXQ3RNJjqjJUiMlJIMQ2ikSMkaPvLrW",
       "name": "Walk-In Customer",

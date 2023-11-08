@@ -14,16 +14,9 @@ function initialState() {
     return {
       isLoading: false,
 
-      // TODO: selama pengerjaan isLoggedIn true, jgn lupa diubah saat pake auth
-      isLoggedIn: true,
-      user: {
-        email: "admin@test.com",
-        name: "admin-test",
-        role: "admin",
-        createdAt: 1698226570,
-        id: 1,
-      },
-      accessToken: "ewqewqewqewqewq",
+      isLoggedIn: false,
+      user: null,
+      accessToken: null,
     };
   }
 
@@ -74,18 +67,24 @@ const authSlice = createSlice({
 
       removeAuthToken();
 
-      state.isLoggedIn = false;
       console.log(payload);
     });
   },
 });
 
-export const login = createAsyncThunk("auth/login", async (data) => {
+export const login = createAsyncThunk("auth/login", async (data, thunkApi) => {
   try {
     const response = await createItem(LOGIN, data);
+    console.log(data, response);
+
+    const { role } = response.user;
+    if (role !== "admin") {
+      return thunkApi.rejectWithValue("Admin Only");
+    }
+
     return response;
   } catch (error) {
-    return error.message;
+    return thunkApi.rejectWithValue(error.message);
   }
 });
 
